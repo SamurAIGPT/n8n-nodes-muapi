@@ -1,0 +1,62 @@
+{
+  "name": "n8n-nodes-muapi",
+  "version": "1.0.0",
+  "description": "n8n community nodes for MuAPI — generative media AI platform (text-to-image, image-to-video, audio, enhance, and more)",
+  "keywords": [
+    "n8n-community-node-package",
+    "muapi",
+    "ai",
+    "generative",
+    "media",
+    "image",
+    "video",
+    "audio"
+  ],
+  "license": "MIT",
+  "homepage": "https://muapi.ai",
+  "author": {
+    "name": "MuAPI",
+    "email": "support@muapi.ai"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Anil-matcha/n8n-nodes-muapi"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && npm run build:icons",
+    "build:icons": "gulp build:icons",
+    "format": "prettier nodes credentials utils --write",
+    "lint": "eslint nodes credentials utils --ext .ts",
+    "prepublishOnly": "npm run build && npm run lint"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/MuapiApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/MuapiPredictor/MuapiPredictor.node.js",
+      "dist/nodes/MuapiUpload/MuapiUpload.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "eslint-plugin-n8n-nodes-base": "^1.0.0",
+    "gulp": "^4.0.0",
+    "n8n-core": "^1.108.0",
+    "n8n-workflow": "^1.106.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "form-data": "^4.0.0"
+  }
+}
