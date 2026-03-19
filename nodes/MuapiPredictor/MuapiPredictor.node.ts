@@ -72,7 +72,11 @@ function buildPayload(
       payload.prompt_optimizer = get('prompt_optimizer');
     } else {
       payload.aspect_ratio = get('t2v_aspect_ratio');
-      if (!['veo3', 'veo3-fast', 'minimax-hailuo-std-t2v', 'minimax-hailuo-pro-t2v', 'hunyuan-t2v', 'pixverse-t2v'].includes(model)) {
+      const excludedFromRes = [
+        'veo3', 'veo3-fast', 'minimax-hailuo-std-t2v', 'minimax-hailuo-pro-t2v',
+        'hunyuan-t2v', 'pixverse-t2v', 'seedance-v2.0-t2v', 'seedance-2.0-new-t2v'
+      ];
+      if (!excludedFromRes.includes(model)) {
         payload.resolution = get('t2v_resolution');
         payload.duration = get('t2v_duration');
       }
@@ -90,7 +94,12 @@ function buildPayload(
     } else {
       payload.image_url = get('i2v_image_url');
     }
-    if (!['veo3-i2v', 'veo3-fast-i2v', 'wan2.1-i2v', 'wan2.2-i2v', 'midjourney-v7-i2v', 'sora2-i2v', 'hunyuan-i2v', 'pixverse-i2v'].includes(model)) {
+    const excludedFromFull = [
+      'veo3-i2v', 'veo3-fast-i2v', 'wan2.1-i2v', 'wan2.2-i2v', 'midjourney-v7-i2v',
+      'sora2-i2v', 'hunyuan-i2v', 'pixverse-i2v', 'seedance-v2.0-i2v',
+      'seedance-2.0-new-omni', 'seedance-2.0-new-first-last'
+    ];
+    if (!excludedFromFull.includes(model)) {
       payload.aspect_ratio = get('i2v_aspect_ratio');
       payload.resolution = get('i2v_resolution');
       payload.duration = get('i2v_duration');
@@ -230,6 +239,7 @@ function showWhen(
 const T2V_ASPECT_MODELS = [
   'veo3', 'veo3-fast', 'runway-t2v',
   'seedance-pro-fast-t2v', 'seedance-v15-pro-t2v',
+  'seedance-v2.0-t2v', 'seedance-2.0-new-t2v',
   'minimax-hailuo-std-t2v', 'minimax-hailuo-pro-t2v',
   'kling-v3-pro-t2v', 'kling-v3-std-t2v',
   'hunyuan-t2v', 'pixverse-t2v',
@@ -239,6 +249,7 @@ const I2V_BASIC_MODELS = [
   'veo3-i2v', 'veo3-fast-i2v', 'runway-i2v',
   'midjourney-v7-i2v', 'hunyuan-i2v', 'pixverse-i2v',
   'kling-v3-pro-i2v', 'kling-v3-std-i2v',
+  'seedance-v2.0-i2v', 'seedance-2.0-new-omni', 'seedance-2.0-new-first-last',
 ];
 
 const KONTEXT_I2I_MODELS = [

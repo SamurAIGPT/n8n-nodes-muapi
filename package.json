@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-muapi",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "n8n community nodes for MuAPI — generative media AI platform (text-to-image, image-to-video, audio, enhance, and more)",
   "keywords": [
     "n8n-community-node-package",
