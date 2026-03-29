@@ -191,6 +191,7 @@ export const MODEL_REGISTRY: Record<string, ModelDefinition[]> = {
     { value: 'seedance-v2.0-i2v', name: 'Seedance 2.0 (I2V)', endpoint: 'seedance-v2.0-i2v', description: 'Seedance 2.0 image-to-video' },
     { value: 'seedance-2.0-new-omni', name: 'Seedance 2.0 New Omni', endpoint: 'seedance-2.0-new-omni', description: 'Seedance 2.0 New Omni image-to-video' },
     { value: 'seedance-2.0-new-first-last', name: 'Seedance 2.0 New First & Last', endpoint: 'seedance-2.0-new-first-last', description: 'Seedance 2.0 New First & Last image-to-video' },
+    { value: 'seedance-2.0-omni-ref', name: 'Seedance 2.0 Omni Reference', endpoint: 'seedance-2.0-omni-reference', description: 'Seedance 2.0 Omni Reference — condition on images, videos, and audio in one request' },
     { value: 'midjourney-v7-i2v', name: 'Midjourney V7 (I2V)', endpoint: 'midjourney-v7-image-to-video', description: 'Midjourney V7 image-to-video' },
     { value: 'hunyuan-i2v', name: 'HunyuanVideo (I2V)', endpoint: 'hunyuan-image-to-video', description: 'HunyuanVideo image-to-video' },
     { value: 'pixverse-i2v', name: 'PixVerse (I2V)', endpoint: 'pixverse-image-to-video', description: 'PixVerse image-to-video' },
@@ -207,6 +208,7 @@ export const MODEL_REGISTRY: Record<string, ModelDefinition[]> = {
     { value: 'image-extend', name: 'Image Extender', endpoint: 'ai-image-extension', description: 'Extend image boundaries' },
     { value: 'object-erase', name: 'Object Eraser', endpoint: 'ai-object-eraser', description: 'Erase objects from images using mask' },
     { value: 'product-shot', name: 'Product Shot', endpoint: 'ai-product-shot', description: 'Generate product photography' },
+    { value: 'seedance-2-character', name: 'Seedance 2 Character', endpoint: 'seedance-2-character', description: 'Create a reusable fictional character sheet from reference photos' },
   ],
   videoEdit: [
     { value: 'wan-effects', name: 'Wan AI Effects', endpoint: 'generate_wan_ai_effects', description: 'Apply AI effects to images (WAN model)' },

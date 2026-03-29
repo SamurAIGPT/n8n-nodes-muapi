@@ -86,7 +86,17 @@ function buildPayload(
 
   if (category === 'imageToVideo') {
     const payload: Record<string, unknown> = { prompt: get('i2v_prompt') };
-    if (['veo3-i2v', 'veo3-fast-i2v'].includes(model)) {
+    if (model === 'seedance-2.0-omni-ref') {
+      payload.aspect_ratio = get('omni_aspect_ratio');
+      payload.duration = get('omni_duration');
+      const imgList = (get('omni_images_list') as string).split(',').map((u: string) => u.trim()).filter(Boolean);
+      if (imgList.length) payload.images_list = imgList;
+      const vidList = (get('omni_video_files') as string).split(',').map((u: string) => u.trim()).filter(Boolean);
+      if (vidList.length) payload.video_files = vidList;
+      const audList = (get('omni_audio_files') as string).split(',').map((u: string) => u.trim()).filter(Boolean);
+      if (audList.length) payload.audio_files = audList;
+      return payload;
+    } else if (['veo3-i2v', 'veo3-fast-i2v'].includes(model)) {
       payload.images_list = (get('i2v_images_list') as string)
         .split(',')
         .map((u: string) => u.trim())
@@ -134,6 +144,18 @@ function buildPayload(
         width: get('anime_width'),
         height: get('anime_height'),
       };
+    }
+    if (model === 'seedance-2-character') {
+      const payload: Record<string, unknown> = {
+        images_list: (get('char_images_list') as string)
+          .split(',')
+          .map((u: string) => u.trim())
+          .filter(Boolean),
+        outfit_description: get('char_outfit_description'),
+      };
+      const name = (get('char_character_name') as string).trim();
+      if (name) payload.character_name = name;
+      return payload;
     }
     return { image_url: get('enhance_image_url') };
   }
@@ -676,6 +698,54 @@ export class MuapiPredictor implements INodeType {
         ]),
       },
 
+      // ── Seedance 2.0 Omni Reference ──────────────────────────────────────
+      {
+        displayName: 'Aspect Ratio',
+        name: 'omni_aspect_ratio',
+        type: 'options',
+        options: [
+          { value: '16:9', name: '16:9 (Landscape)' },
+          { value: '9:16', name: '9:16 (Portrait)' },
+          { value: '1:1', name: '1:1 (Square)' },
+          { value: '4:3', name: '4:3' },
+          { value: '3:4', name: '3:4' },
+        ],
+        default: '16:9',
+        displayOptions: showWhen('imageToVideo', ['seedance-2.0-omni-ref']),
+      },
+      {
+        displayName: 'Duration (seconds)',
+        name: 'omni_duration',
+        type: 'number',
+        default: 5,
+        description: 'Video duration in seconds',
+        displayOptions: showWhen('imageToVideo', ['seedance-2.0-omni-ref']),
+      },
+      {
+        displayName: 'Image URL(s)',
+        name: 'omni_images_list',
+        type: 'string',
+        default: '',
+        description: 'Optional image reference URLs, comma-separated',
+        displayOptions: showWhen('imageToVideo', ['seedance-2.0-omni-ref']),
+      },
+      {
+        displayName: 'Video File URL(s)',
+        name: 'omni_video_files',
+        type: 'string',
+        default: '',
+        description: 'Optional video reference URLs, comma-separated (minimum 4 s each)',
+        displayOptions: showWhen('imageToVideo', ['seedance-2.0-omni-ref']),
+      },
+      {
+        displayName: 'Audio File URL(s)',
+        name: 'omni_audio_files',
+        type: 'string',
+        default: '',
+        description: 'Optional audio reference URLs, comma-separated',
+        displayOptions: showWhen('imageToVideo', ['seedance-2.0-omni-ref']),
+      },
+
       // ══════════════════════════════════════════════════════════════════════
       // IMAGE ENHANCE PARAMETERS
       // ══════════════════════════════════════════════════════════════════════
@@ -776,6 +846,35 @@ export class MuapiPredictor implements INodeType {
         type: 'number',
         default: 1024,
         displayOptions: showWhen('imageEnhance', ['anime']),
+      },
+
+      // ── Seedance 2 Character ─────────────────────────────────────────────
+      {
+        displayName: 'Reference Image URL(s)',
+        name: 'char_images_list',
+        type: 'string',
+        default: '',
+        required: true,
+        description: 'URLs of reference photos of the person, comma-separated (1–5 images)',
+        displayOptions: showWhen('imageEnhance', ['seedance-2-character']),
+      },
+      {
+        displayName: 'Outfit Description',
+        name: 'char_outfit_description',
+        type: 'string',
+        typeOptions: { rows: 3 },
+        default: '',
+        required: true,
+        description: 'Describe the desired outfit or style for the fictional character',
+        displayOptions: showWhen('imageEnhance', ['seedance-2-character']),
+      },
+      {
+        displayName: 'Character Name (optional)',
+        name: 'char_character_name',
+        type: 'string',
+        default: '',
+        description: 'Optional display name for the character',
+        displayOptions: showWhen('imageEnhance', ['seedance-2-character']),
       },
 
       // ══════════════════════════════════════════════════════════════════════
