@@ -1,0 +1,102 @@
+{
+  "name": "MuAPI \u2014 Giant Product Showcase",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "73367ec2-63f0-4102-9cba-05843090c974",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Re-render the product from @image1 at a colossal building-size scale, placed in the middle of a busy city plaza, cinematic low-angle shot.",
+        "images_list": "https://example.com/product.jpg",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "f4509793-1458-4118-91cd-e8e7ebde95a6",
+      "name": "Giant",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "veo3.1-fast-i2v",
+        "i2v_prompt": "Camera slowly rises tilting up to reveal the full giant product. City sounds, crowd reactions.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "16:9",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "e8dd6203-4d84-424b-a2a4-e17705e6bea5",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Giant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Giant": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b06ef0c1-3f1d-4fc5-a0ff-955344b744ae",
+  "id": "3e060eff-18d5-4258-a4f0-8c4c695506e6",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

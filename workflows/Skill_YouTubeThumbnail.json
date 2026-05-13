@@ -1,0 +1,65 @@
+{
+  "name": "MuAPI \u2014 YouTube Thumbnail (GPT-Image 2)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "27f1724e-3a1e-4047-9e9c-8f86a23c948d",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "gpt-image-2",
+        "prompt": "YouTube thumbnail, 16:9, bold expressive face on the left looking shocked, large readable text on the right reading 'INSANE RESULT!' in thick yellow outlined sans, dark vignetted background, high contrast.",
+        "aspect_ratio": "16:9"
+      },
+      "id": "10a09849-dea9-46e3-b42a-6419a2933564",
+      "name": "Thumbnail",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Thumbnail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "27038d14-c673-4bd3-81c5-e59da29baf43",
+  "id": "f9936371-1e30-4bca-ac50-815632e13976",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

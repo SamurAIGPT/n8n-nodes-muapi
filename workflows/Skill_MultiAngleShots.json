@@ -1,0 +1,122 @@
+{
+  "name": "MuAPI \u2014 Multi-Angle Product Shots (3 angles)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "e81e751a-8f31-44c7-9d4e-7b4e0c6c82cf",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Re-render the exact same product from a straight-on front view, white seamless background, soft studio light.",
+        "images_list": "https://example.com/product.jpg",
+        "i2i_aspect_ratio": "1:1"
+      },
+      "id": "7d8aa5c6-c7da-4ad2-b243-ebfd5d1c43ef",
+      "name": "Front",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Re-render the exact same product from a 90\u00b0 side profile view, white seamless background, same lighting.",
+        "images_list": "https://example.com/product.jpg",
+        "i2i_aspect_ratio": "1:1"
+      },
+      "id": "7684745b-15ed-4d86-a0dc-6817bac01f96",
+      "name": "Side",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Re-render the exact same product from a top-down bird's-eye view, white seamless background, same lighting.",
+        "images_list": "https://example.com/product.jpg",
+        "i2i_aspect_ratio": "1:1"
+      },
+      "id": "78146dc7-b4ee-4bc7-86cd-cea77305a9b5",
+      "name": "Top",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        980,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Front",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Side",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Top",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "91baee16-24bd-480b-b73b-90e85810a9ba",
+  "id": "03da310e-8be2-4362-86bd-44d89d127ce4",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

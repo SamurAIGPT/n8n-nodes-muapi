@@ -1,0 +1,102 @@
+{
+  "name": "MuAPI \u2014 Jewelry Macro Video",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "ac9bd63f-a097-4744-b8bb-2788ba99360e",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Place the jewelry on black velvet, dramatic spotlight, macro studio shot, hyper-detailed.",
+        "images_list": "https://example.com/ring.jpg",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "67d5bc61-dcc2-470e-b385-34bfab1ab8df",
+      "name": "Studio",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "grok-i2v",
+        "i2v_prompt": "Slow macro orbit around the jewel, light catches each facet, luxury commercial feel.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "16:9",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "b4702c6b-f8f3-4d43-98fc-76206292a986",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Studio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Studio": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b8d51971-a1da-48a9-a0de-b9016f8b8191",
+  "id": "d5dd1b02-060a-4fd0-8401-1404d4f1ec20",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

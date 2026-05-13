@@ -1,0 +1,119 @@
+{
+  "name": "MuAPI \u2014 Storyboard (Nano-Banana 2, 3 keyframes)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "b8da58d8-b206-4db0-be8c-c8920789c097",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-2",
+        "prompt": "Storyboard frame 1: wide establishing shot of a futuristic city at sunrise, golden glow, cinematic 2.39:1 letterbox feel.",
+        "aspect_ratio": "16:9"
+      },
+      "id": "8c018d2f-5531-478f-a254-2f56a322072f",
+      "name": "Frame1",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-2",
+        "prompt": "Storyboard frame 2: medium shot, lone hero in long coat walking down empty street, neon reflections, same city, same time of day.",
+        "aspect_ratio": "16:9"
+      },
+      "id": "d67e3a91-4143-40a3-ae0e-8ff91a963359",
+      "name": "Frame2",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-2",
+        "prompt": "Storyboard frame 3: close-up of the same hero, determined expression, warm key light from the left, neon bokeh background.",
+        "aspect_ratio": "16:9"
+      },
+      "id": "01f08ccb-95be-469f-a796-e36fd7575061",
+      "name": "Frame3",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        980,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Frame1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Frame2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Frame3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "54e61115-6b52-420c-97ac-229fcc0293db",
+  "id": "d196a2e0-cf56-4822-a4c2-317063b5feed",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

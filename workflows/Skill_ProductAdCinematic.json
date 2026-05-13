@@ -1,0 +1,102 @@
+{
+  "name": "MuAPI \u2014 Product Ad Cinematic",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "0b5fd1c6-4657-4e8d-84fe-c5987e9cd206",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2",
+        "i2i_prompt": "Cinematic product hero shot \u2014 marble surface, sweeping volumetric light, depth-of-field background, premium commercial look.",
+        "images_list": "https://example.com/product.jpg",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "3321aa4b-bc3c-4c81-93f0-4eaede5c6238",
+      "name": "Hero",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "kling-v3-std-i2v",
+        "i2v_prompt": "Cinematic 8s product ad: slow rotate revealing the silhouette, dramatic backlight bloom, dust particles drifting.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "16:9",
+        "i2v_duration": 8,
+        "i2v_resolution": "720p"
+      },
+      "id": "44c7d551-e35f-4371-b902-c8db67bbd28e",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Hero",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hero": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "31c87f2f-caec-4d3b-a1bc-0a0ee69dc9a5",
+  "id": "5a660d8a-7499-4a51-8e6f-44e35c0f6638",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

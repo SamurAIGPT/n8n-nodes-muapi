@@ -1,0 +1,135 @@
+{
+  "name": "MuAPI \u2014 Character Story Video",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "1a9c4877-7904-4603-bf5a-33d8af69b593",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-pro",
+        "prompt": "Establish the hero character: young explorer in worn leather jacket, amber eyes, soft natural light. Reference sheet, neutral background.",
+        "aspect_ratio": "1:1"
+      },
+      "id": "4a891a1e-bdd9-492a-8664-b5217a754d8b",
+      "name": "Character",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "flux-kontext-pro-i2i",
+        "i2i_prompt": "Place the same character in scene 1: standing at the edge of a misty forest at dawn. Preserve identity exactly.",
+        "images_list": "={{ $json.outputs[0] }}",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "f134558c-6d16-4fd3-b00e-5c5543882234",
+      "name": "Scene",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "kling-v3-pro-i2v",
+        "i2v_prompt": "Camera dollies forward as the character steps into the forest. Cinematic, naturalistic motion.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "16:9",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "6e20b8ee-5d15-4a3b-b773-b8660b1ba6a6",
+      "name": "Shot",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        980,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Character",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Character": {
+      "main": [
+        [
+          {
+            "node": "Scene",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scene": {
+      "main": [
+        [
+          {
+            "node": "Shot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7ccfab68-a171-41a5-90d7-c86f5f2b81b5",
+  "id": "8e28d887-865c-45a3-a695-a13c60fef06e",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

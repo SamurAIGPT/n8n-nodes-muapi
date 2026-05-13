@@ -1,0 +1,101 @@
+{
+  "name": "MuAPI \u2014 UGC Lifestyle Try-On",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "2e80382f-df2e-47ff-a48e-b85425b0c195",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "videoEdit",
+        "model": "dress-change",
+        "dress_model_image_url": "https://example.com/person.jpg",
+        "dress_garment_image_url": "https://example.com/garment.jpg"
+      },
+      "id": "07a1f8db-4f46-4121-a6c6-71e82507938e",
+      "name": "Dress",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "kling-v3-pro-i2v",
+        "i2v_prompt": "Natural UGC lifestyle clip. Subject smiles at the camera and casually adjusts the sleeve. Soft handheld feel.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "9:16",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "2d94de90-511b-4ea9-a254-a7e7e8ef6585",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Dress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dress": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7d983087-77cf-4b63-a79b-1081ee7615d7",
+  "id": "87a532e8-7ef6-41d3-9121-9026faec8cc7",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

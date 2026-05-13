@@ -24,7 +24,16 @@ function buildPayload(
     const prompt = get('prompt') as string;
     const base: Record<string, unknown> = { prompt };
 
-    if (['flux-dev', 'flux-schnell', 'hidream-fast', 'hidream-dev', 'hidream-full'].includes(model)) {
+    const isWH = [
+      'flux-dev', 'flux-schnell', 'flux-krea',
+      'flux-2-dev', 'flux-2-pro', 'flux-2-flex',
+      'flux-2-klein-4b', 'flux-2-klein-9b',
+      'flux-2-klein-4b-turbo', 'flux-2-klein-9b-turbo',
+      'hidream-fast', 'hidream-dev', 'hidream-full',
+      'wan2.1-t2i', 'sdxl', 'perfect-pony', 'neta-lumina', 'ai-anime',
+    ].includes(model);
+
+    if (isWH) {
       base.width = get('width');
       base.height = get('height');
       base.num_images = get('num_images');
@@ -35,9 +44,6 @@ function buildPayload(
       if (['flux-kontext-dev', 'flux-kontext-pro', 'flux-kontext-max'].includes(model)) {
         base.num_images = get('num_images');
       }
-    }
-    if (model === 'qwen-t2i') {
-      base.negative_prompt = get('negative_prompt');
     }
     return base;
   }
@@ -64,17 +70,25 @@ function buildPayload(
 
   if (category === 'textToVideo') {
     const payload: Record<string, unknown> = { prompt: get('t2v_prompt') };
-    if (model === 'sora2-t2v') {
+    if (['sora-2-t2v', 'sora-2-pro-t2v', 'sora-2-std-t2v', 'sora-2-storyboard'].includes(model)) {
       payload.mode = get('sora_mode');
       payload.seconds = get('sora_seconds');
       payload.size = get('sora_size');
-    } else if (['wan2.1-t2v', 'wan2.2-t2v'].includes(model)) {
+    } else if (['wan2.1-t2v', 'wan2.2-t2v', 'wan2.5-t2v', 'wan2.6-t2v', 'wan2.7-t2v'].includes(model)) {
       payload.prompt_optimizer = get('prompt_optimizer');
     } else {
       payload.aspect_ratio = get('t2v_aspect_ratio');
+      // Models that DON'T expose resolution + duration sliders together
       const excludedFromRes = [
-        'veo3', 'veo3-fast', 'minimax-hailuo-std-t2v', 'minimax-hailuo-pro-t2v',
-        'hunyuan-t2v', 'pixverse-t2v', 'seedance-v2.0-t2v', 'seedance-2.0-new-t2v'
+        'veo3', 'veo3-fast', 'veo3.1', 'veo3.1-fast', 'veo3.1-4k', 'veo3.1-lite', 'veo4',
+        'minimax-hailuo-02-std-t2v', 'minimax-hailuo-02-pro-t2v',
+        'minimax-hailuo-2.3-pro-t2v', 'minimax-hailuo-2.3-std-t2v',
+        'hunyuan-t2v', 'hunyuan-fast-t2v',
+        'pixverse-v4.5-t2v', 'pixverse-v5-t2v', 'pixverse-v5.5-t2v', 'pixverse-v6-t2v',
+        'seedance-v2.0-t2v', 'seedance-2-t2v', 'seedance-2-t2v-fast',
+        'seedance-2-vip-t2v', 'seedance-2-vip-t2v-fast',
+        'ltx-2-pro-t2v', 'ltx-2-fast-t2v', 'ltx-2-19b-t2v', 'ltx-2.3-t2v',
+        'ovi-t2v', 'grok-t2v',
       ];
       if (!excludedFromRes.includes(model)) {
         payload.resolution = get('t2v_resolution');
@@ -86,7 +100,7 @@ function buildPayload(
 
   if (category === 'imageToVideo') {
     const payload: Record<string, unknown> = { prompt: get('i2v_prompt') };
-    if (model === 'seedance-2.0-omni-ref') {
+    if (model === 'seedance-2.0-omni-ref' || model === 'seedance-v2.0-omni-ref') {
       payload.aspect_ratio = get('omni_aspect_ratio');
       payload.duration = get('omni_duration');
       const imgList = (get('omni_images_list') as string).split(',').map((u: string) => u.trim()).filter(Boolean);
@@ -96,7 +110,7 @@ function buildPayload(
       const audList = (get('omni_audio_files') as string).split(',').map((u: string) => u.trim()).filter(Boolean);
       if (audList.length) payload.audio_files = audList;
       return payload;
-    } else if (['veo3-i2v', 'veo3-fast-i2v'].includes(model)) {
+    } else if (I2V_LIST_MODELS.includes(model)) {
       payload.images_list = (get('i2v_images_list') as string)
         .split(',')
         .map((u: string) => u.trim())
@@ -104,17 +118,53 @@ function buildPayload(
     } else {
       payload.image_url = get('i2v_image_url');
     }
+    // Models that DON'T expose aspect_ratio + resolution + duration sliders together
     const excludedFromFull = [
-      'veo3-i2v', 'veo3-fast-i2v', 'wan2.1-i2v', 'wan2.2-i2v', 'midjourney-v7-i2v',
-      'sora2-i2v', 'hunyuan-i2v', 'pixverse-i2v', 'seedance-v2.0-i2v',
-      'seedance-2.0-new-omni', 'seedance-2.0-new-first-last'
+      'veo3-i2v', 'veo3-fast-i2v', 'veo3.1-i2v', 'veo3.1-fast-i2v', 'veo3.1-ref',
+      'veo3.1-lite-i2v', 'veo4-i2v',
+      'wan2.1-i2v', 'wan2.1-ref', 'wan2.2-i2v', 'wan2.2-spicy-i2v',
+      'wan2.5-i2v', 'wan2.5-i2v-fast', 'wan2.6-i2v', 'wan2.7-i2v', 'wan2.7-ref',
+      'midjourney-v7-i2v',
+      'sora-2-i2v', 'sora-2-pro-i2v', 'sora-2-std-i2v',
+      'hunyuan-i2v',
+      'pixverse-v4.5-i2v', 'pixverse-v5-i2v', 'pixverse-v5.5-i2v',
+      'pixverse-v6-i2v', 'pixverse-v6-transition',
+      'seedance-v2.0-i2v',
+      'seedance-2.0-new-omni', 'seedance-2.0-new-first-last',
+      'seedance-2-i2v', 'seedance-2-i2v-fast',
+      'seedance-2-first-last-frame', 'seedance-2-vip-i2v',
+      'ltx-2-pro-i2v', 'ltx-2-fast-i2v', 'ltx-2-19b-i2v', 'ltx-2.3-i2v',
+      'kling-v3-4k-i2v', 'kling-v3-omni-pro-i2v', 'kling-v3-omni-std-i2v', 'kling-v3-omni-4k-i2v',
+      'happy-horse-1080-i2v', 'happy-horse-720-i2v', 'happy-horse-1080-ref',
+      'ovi-i2v',
     ];
     if (!excludedFromFull.includes(model)) {
       payload.aspect_ratio = get('i2v_aspect_ratio');
       payload.resolution = get('i2v_resolution');
       payload.duration = get('i2v_duration');
-    } else if (['veo3-i2v', 'veo3-fast-i2v', 'runway-i2v', 'kling-v3-pro-i2v', 'kling-v3-std-i2v'].includes(model)) {
+    } else if ([
+      'veo3-i2v', 'veo3-fast-i2v', 'veo3.1-i2v', 'veo3.1-fast-i2v', 'veo4-i2v',
+      'runway-i2v', 'runway-act-two-i2v',
+      'kling-v3-pro-i2v', 'kling-v3-std-i2v', 'kling-v3-4k-i2v',
+      'kling-v3-omni-pro-i2v', 'kling-v3-omni-std-i2v', 'kling-v3-omni-4k-i2v',
+    ].includes(model)) {
       payload.aspect_ratio = get('i2v_aspect_ratio');
+    }
+    return payload;
+  }
+
+  if (category === 'imageTo3D') {
+    const prompt = ((get('threeD_prompt') as string) || '').trim();
+    const payload: Record<string, unknown> = {};
+    if (prompt) payload.prompt = prompt;
+    const imgList = ((get('threeD_images_list') as string) || '')
+      .split(',').map((u: string) => u.trim()).filter(Boolean);
+    if (imgList.length) {
+      if (model.includes('multi') || model.includes('multiview')) {
+        payload.images_list = imgList;
+      } else {
+        payload.image_url = imgList[0];
+      }
     }
     return payload;
   }
@@ -244,6 +294,7 @@ const CATEGORY_OPTIONS: INodePropertyOptions[] = [
   { value: 'imageEnhance', name: 'Image Enhance' },
   { value: 'videoEdit', name: 'Video Edit' },
   { value: 'audio', name: 'Audio' },
+  { value: 'imageTo3D', name: 'Image/Text to 3D' },
 ];
 
 // ─── Helper to build displayOptions "show" for a model ───────────────────────
@@ -257,28 +308,131 @@ function showWhen(
 
 // ─── Shared parameter groups ──────────────────────────────────────────────────
 
-// All models that accept prompt + aspect_ratio
+// T2V models that accept prompt + aspect_ratio
 const T2V_ASPECT_MODELS = [
-  'veo3', 'veo3-fast', 'runway-t2v',
-  'seedance-pro-fast-t2v', 'seedance-v15-pro-t2v',
-  'seedance-v2.0-t2v', 'seedance-2.0-new-t2v',
-  'minimax-hailuo-std-t2v', 'minimax-hailuo-pro-t2v',
-  'kling-v3-pro-t2v', 'kling-v3-std-t2v',
-  'hunyuan-t2v', 'pixverse-t2v',
+  // Veo
+  'veo3', 'veo3-fast', 'veo3.1', 'veo3.1-fast', 'veo3.1-4k', 'veo3.1-lite', 'veo4',
+  // Kling
+  'kling-master-t2v', 'kling-v2.5-pro-t2v', 'kling-v2.6-pro-t2v',
+  'kling-v3-pro-t2v', 'kling-v3-std-t2v', 'kling-v3-4k-t2v',
+  'kling-v3-omni-pro-t2v', 'kling-v3-omni-std-t2v', 'kling-v3-omni-4k-t2v',
+  'kling-o1-t2v',
+  // Seedance
+  'seedance-pro-t2v', 'seedance-pro-t2v-fast', 'seedance-lite-t2v',
+  'seedance-v1.5-pro-t2v', 'seedance-v1.5-pro-t2v-fast',
+  'seedance-v2.0-t2v',
+  'seedance-2-t2v', 'seedance-2-t2v-fast',
+  'seedance-2-vip-t2v', 'seedance-2-vip-t2v-fast',
+  // Sora
+  'sora', 'sora-2-t2v', 'sora-2-pro-t2v', 'sora-2-std-t2v', 'sora-2-storyboard',
+  // Hunyuan / Runway
+  'hunyuan-t2v', 'hunyuan-fast-t2v', 'runway-t2v',
+  // Pixverse / Vidu
+  'pixverse-v4.5-t2v', 'pixverse-v5-t2v', 'pixverse-v5.5-t2v', 'pixverse-v6-t2v',
+  'vidu-v2.0-t2v', 'vidu-q2-pro-t2v', 'vidu-q2-turbo-t2v',
+  'vidu-q3-pro-t2v', 'vidu-q3-turbo-t2v',
+  // MiniMax / LTX
+  'minimax-hailuo-02-std-t2v', 'minimax-hailuo-02-pro-t2v',
+  'minimax-hailuo-2.3-pro-t2v', 'minimax-hailuo-2.3-std-t2v',
+  'ltx-2-pro-t2v', 'ltx-2-fast-t2v', 'ltx-2-19b-t2v', 'ltx-2.3-t2v',
+  // Other
+  'ovi-t2v', 'grok-t2v',
+  'happy-horse-1080-t2v', 'happy-horse-720-t2v',
 ];
 
+// I2V models that take image_url (single image) — most newer image-to-video models
 const I2V_BASIC_MODELS = [
-  'veo3-i2v', 'veo3-fast-i2v', 'runway-i2v',
-  'midjourney-v7-i2v', 'hunyuan-i2v', 'pixverse-i2v',
+  // Veo
+  'veo3-i2v', 'veo3-fast-i2v', 'veo3.1-i2v', 'veo3.1-fast-i2v',
+  'veo3.1-ref', 'veo3.1-lite-i2v',
+  // Runway / Hunyuan / Midjourney / Leonardo / OVI / Grok
+  'runway-i2v', 'runway-act-two-i2v',
+  'midjourney-v7-i2v', 'hunyuan-i2v',
+  'leonardo-motion', 'ovi-i2v', 'grok-i2v',
+  // Kling i2v (uses image_url)
+  'kling-v2.1-std-i2v', 'kling-v2.1-pro-i2v', 'kling-v2.1-master-i2v',
+  'kling-v2.5-pro-i2v', 'kling-v2.5-std-i2v', 'kling-v2.6-pro-i2v',
   'kling-v3-pro-i2v', 'kling-v3-std-i2v',
-  'seedance-v2.0-i2v', 'seedance-2.0-new-omni', 'seedance-2.0-new-first-last',
+  'kling-o1-i2v', 'kling-o1-std-i2v', 'kling-o1-ref',
+  // Seedance v2 single-image variants
+  'seedance-v2.0-i2v',
+  'seedance-2.0-new-omni', 'seedance-2.0-new-first-last',
+  // MiniMax / Hailuo
+  'minimax-hailuo-02-std-i2v', 'minimax-hailuo-02-pro-i2v',
+  'minimax-hailuo-2.3-pro-i2v', 'minimax-hailuo-2.3-std-i2v',
+  'minimax-hailuo-2.3-fast',
+  // LTX
+  'ltx-2-pro-i2v', 'ltx-2-fast-i2v', 'ltx-2-19b-i2v', 'ltx-2.3-i2v',
+  // InfiniteTalk / Effects
+  'infinitetalk-i2v', 'video-effects', 'wan-effects',
 ];
 
+// I2V models that take images_list (array of URLs)
+const I2V_LIST_MODELS = [
+  'veo4-i2v',
+  'sora-2-i2v', 'sora-2-pro-i2v', 'sora-2-std-i2v',
+  'kling-v3-4k-i2v', 'kling-v3-omni-pro-i2v',
+  'kling-v3-omni-std-i2v', 'kling-v3-omni-4k-i2v',
+  // Seedance 2
+  'seedance-2-i2v', 'seedance-2-i2v-fast', 'seedance-2-first-last-frame',
+  'seedance-2-vip-i2v',
+  // Pixverse
+  'pixverse-v4.5-i2v', 'pixverse-v5-i2v', 'pixverse-v5.5-i2v',
+  'pixverse-v6-i2v', 'pixverse-v6-transition',
+  // Vidu
+  'vidu-v2.0-i2v', 'vidu-q1-ref', 'vidu-q2-pro-i2v', 'vidu-q2-turbo-i2v',
+  'vidu-q2-ref', 'vidu-q2-start-end', 'vidu-q3-pro-i2v', 'vidu-q3-turbo-i2v',
+  'vidu-q3-flf',
+  // Wan
+  'wan2.1-i2v', 'wan2.1-ref', 'wan2.2-i2v', 'wan2.2-spicy-i2v',
+  'wan2.5-i2v', 'wan2.5-i2v-fast', 'wan2.6-i2v', 'wan2.7-i2v', 'wan2.7-ref',
+  // Seedance older — uses images_list
+  'seedance-pro-i2v', 'seedance-pro-i2v-fast', 'seedance-lite-i2v',
+  'seedance-lite-ref',
+  'seedance-v1.5-pro-i2v', 'seedance-v1.5-pro-i2v-fast',
+  'seedance-v2.0-omni-ref',
+  // Happy Horse
+  'happy-horse-1080-i2v', 'happy-horse-720-i2v', 'happy-horse-1080-ref',
+];
+
+// I2I models that send images via images_list (array) + aspect_ratio
 const KONTEXT_I2I_MODELS = [
+  // Flux Kontext
   'flux-kontext-dev-i2i', 'flux-kontext-pro-i2i', 'flux-kontext-max-i2i',
+  // Flux 2 Edit
+  'flux-2-dev-edit', 'flux-2-pro-edit', 'flux-2-flex-edit',
+  'flux-2-klein-4b-edit', 'flux-2-klein-9b-edit',
+  // Seedream edits
+  'seedream-edit-v4', 'seedream-edit-v4.5', 'seedream-5-edit',
+  // Qwen edits
+  'qwen-edit', 'qwen-edit-2511', 'qwen-edit-plus', 'qwen-edit-plus-lora',
+  'qwen-2.0-edit', 'qwen-2.0-pro-edit',
+  // Nano-banana edits
+  'nano-banana-edit', 'nano-banana-effects',
+  'nano-banana-2-edit', 'nano-banana-pro-edit',
+  // Kling o3
+  'kling-o3-edit',
+  // Wan edits
+  'wan2.5-edit', 'wan2.6-edit', 'wan2.7-edit', 'wan2.7-edit-pro',
+  // Other
+  'vidu-q2-ref-image', 'seedance-2-character',
 ];
 
-const BASIC_IMAGE_MODELS = ['flux-dev', 'flux-schnell', 'hidream-fast', 'hidream-dev', 'hidream-full'];
+// T2I models that need width/height (rather than aspect_ratio)
+const BASIC_IMAGE_MODELS = [
+  // Flux 1.x
+  'flux-dev', 'flux-schnell', 'flux-krea',
+  // Flux 2
+  'flux-2-dev', 'flux-2-pro', 'flux-2-flex',
+  'flux-2-klein-4b', 'flux-2-klein-9b',
+  'flux-2-klein-4b-turbo', 'flux-2-klein-9b-turbo',
+  // HiDream
+  'hidream-fast', 'hidream-dev', 'hidream-full',
+  // Wan (only 2.1 uses w/h)
+  'wan2.1-t2i',
+  // Open-weight base models
+  'sdxl', 'perfect-pony', 'neta-lumina', 'ai-anime',
+];
 
 export class MuapiPredictor implements INodeType {
   description: INodeTypeDescription = {
@@ -382,10 +536,24 @@ export class MuapiPredictor implements INodeType {
         ],
         default: '1:1',
         description: 'Aspect ratio of the output image',
+        // Aspect-ratio T2I models — everything not in BASIC_IMAGE_MODELS
         displayOptions: showWhen('textToImage', [
           'flux-kontext-dev', 'flux-kontext-pro', 'flux-kontext-max',
-          'midjourney-v7', 'reve', 'wan2.1-t2i',
-          'seedream-3', 'seedream-4', 'qwen-t2i', 'gpt4o-t2i',
+          'midjourney-v7-t2i', 'midjourney-v7', 'midjourney-v8', 'midjourney-niji',
+          'reve',
+          'seedream-v3', 'seedream-v4', 'seedream-v4.5', 'seedream-5',
+          'qwen-image', 'qwen-2.0', 'qwen-2.0-pro',
+          'nano-banana', 'nano-banana-pro', 'nano-banana-2',
+          'imagen4', 'imagen4-fast', 'imagen4-ultra',
+          'gpt-image-1.5', 'gpt-image-2',
+          'kling-o1-t2i', 'kling-o3',
+          'hunyuan-image-2.1', 'hunyuan-image-3.0',
+          'ideogram-v3',
+          'z-image-base', 'z-image-turbo',
+          'leonardo-lucid', 'leonardo-phoenix',
+          'grok', 'grok-quality',
+          'chroma',
+          'wan2.5-t2i', 'wan2.6-t2i', 'wan2.7-t2i', 'wan2.7-t2i-pro',
         ]),
       },
 
@@ -405,19 +573,8 @@ export class MuapiPredictor implements INodeType {
         displayOptions: showWhen('textToImage', [
           ...BASIC_IMAGE_MODELS,
           'flux-kontext-dev', 'flux-kontext-pro', 'flux-kontext-max',
-          'gpt4o-t2i', 'hidream-fast', 'hidream-dev', 'hidream-full',
+          'gpt4o-t2i',
         ]),
-      },
-
-      // negative_prompt — for some models
-      {
-        displayName: 'Negative Prompt',
-        name: 'negative_prompt',
-        type: 'string',
-        typeOptions: { rows: 2 },
-        default: '',
-        description: 'What to avoid in the generated image',
-        displayOptions: showWhen('textToImage', ['qwen-t2i']),
       },
 
       // ══════════════════════════════════════════════════════════════════════
@@ -571,7 +728,7 @@ export class MuapiPredictor implements INodeType {
           { value: 'budget', name: 'Budget' },
         ],
         default: 'stable',
-        displayOptions: showWhen('textToVideo', ['sora2-t2v']),
+        displayOptions: showWhen('textToVideo', ['sora-2-t2v', 'sora-2-pro-t2v', 'sora-2-std-t2v', 'sora-2-storyboard']),
       },
       {
         displayName: 'Seconds',
@@ -582,7 +739,7 @@ export class MuapiPredictor implements INodeType {
           { value: '15', name: '15s' },
         ],
         default: '10',
-        displayOptions: showWhen('textToVideo', ['sora2-t2v']),
+        displayOptions: showWhen('textToVideo', ['sora-2-t2v', 'sora-2-pro-t2v', 'sora-2-std-t2v', 'sora-2-storyboard']),
       },
       {
         displayName: 'Size',
@@ -593,7 +750,7 @@ export class MuapiPredictor implements INodeType {
           { value: '1280x720', name: '1280x720 (Landscape)' },
         ],
         default: '720x1280',
-        displayOptions: showWhen('textToVideo', ['sora2-t2v']),
+        displayOptions: showWhen('textToVideo', ['sora-2-t2v', 'sora-2-pro-t2v', 'sora-2-std-t2v', 'sora-2-storyboard']),
       },
 
       // wan2.1/wan2.2 t2v
@@ -632,23 +789,18 @@ export class MuapiPredictor implements INodeType {
         default: '',
         required: true,
         description: 'URL of the input image',
-        displayOptions: {
-          show: {
-            category: ['imageToVideo'],
-            model: [...I2V_BASIC_MODELS, 'seedance-pro-fast-i2v', 'seedance-v15-pro-i2v', 'wan2.1-i2v', 'wan2.2-i2v', 'sora2-i2v'],
-          },
-        },
+        displayOptions: showWhen('imageToVideo', I2V_BASIC_MODELS),
       },
 
-      // images_list for veo3 i2v (1-2 images)
+      // images_list for I2V models that accept multiple images
       {
         displayName: 'Image URL(s)',
         name: 'i2v_images_list',
         type: 'string',
         default: '',
         required: true,
-        description: 'URL(s) of input images, comma-separated (1-2 images)',
-        displayOptions: showWhen('imageToVideo', ['veo3-i2v', 'veo3-fast-i2v']),
+        description: 'URL(s) of input images, comma-separated',
+        displayOptions: showWhen('imageToVideo', I2V_LIST_MODELS),
       },
 
       {
@@ -664,9 +816,7 @@ export class MuapiPredictor implements INodeType {
         ],
         default: '16:9',
         description: 'Aspect ratio of the output video',
-        displayOptions: showWhen('imageToVideo', [
-          ...I2V_BASIC_MODELS, 'seedance-pro-fast-i2v', 'seedance-v15-pro-i2v',
-        ]),
+        displayOptions: showWhen('imageToVideo', I2V_BASIC_MODELS),
       },
 
       {
@@ -681,7 +831,9 @@ export class MuapiPredictor implements INodeType {
         default: '720p',
         description: 'Video resolution',
         displayOptions: showWhen('imageToVideo', [
-          'runway-i2v', 'seedance-pro-fast-i2v', 'seedance-v15-pro-i2v',
+          'runway-i2v', 'runway-act-two-i2v',
+          'seedance-pro-i2v', 'seedance-pro-i2v-fast',
+          'seedance-lite-i2v', 'seedance-v1.5-pro-i2v', 'seedance-v1.5-pro-i2v-fast',
           'kling-v3-pro-i2v', 'kling-v3-std-i2v',
         ]),
       },
@@ -693,7 +845,9 @@ export class MuapiPredictor implements INodeType {
         default: 5,
         description: 'Video duration in seconds',
         displayOptions: showWhen('imageToVideo', [
-          'runway-i2v', 'seedance-pro-fast-i2v', 'seedance-v15-pro-i2v',
+          'runway-i2v', 'runway-act-two-i2v',
+          'seedance-pro-i2v', 'seedance-pro-i2v-fast',
+          'seedance-lite-i2v', 'seedance-v1.5-pro-i2v', 'seedance-v1.5-pro-i2v-fast',
           'kling-v3-pro-i2v', 'kling-v3-std-i2v',
         ]),
       },
@@ -875,6 +1029,27 @@ export class MuapiPredictor implements INodeType {
         default: '',
         description: 'Optional display name for the character',
         displayOptions: showWhen('imageEnhance', ['seedance-2-character']),
+      },
+
+      // ══════════════════════════════════════════════════════════════════════
+      // IMAGE / TEXT TO 3D PARAMETERS
+      // ══════════════════════════════════════════════════════════════════════
+      {
+        displayName: 'Prompt',
+        name: 'threeD_prompt',
+        type: 'string',
+        typeOptions: { rows: 3 },
+        default: '',
+        description: 'Text description (required for text-to-3D, optional for image-to-3D)',
+        displayOptions: { show: { category: ['imageTo3D'] } },
+      },
+      {
+        displayName: 'Image URL(s)',
+        name: 'threeD_images_list',
+        type: 'string',
+        default: '',
+        description: 'Image URL(s), comma-separated. Required for image-to-3D / multi-image variants.',
+        displayOptions: { show: { category: ['imageTo3D'] } },
       },
 
       // ══════════════════════════════════════════════════════════════════════

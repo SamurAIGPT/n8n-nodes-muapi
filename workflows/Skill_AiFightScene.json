@@ -1,0 +1,101 @@
+{
+  "name": "MuAPI \u2014 AI Fight Scene",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "018e6a14-2554-462b-a789-839ebf2b7e05",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "gpt-image-2",
+        "prompt": "16-cell storyboard grid (4\u00d74) of an action scene: two warriors duel across a rainy rooftop, each cell a unique cut.",
+        "aspect_ratio": "1:1"
+      },
+      "id": "9f0134c6-9e14-40d7-b324-19335b46d9c4",
+      "name": "Storyboard",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "seedance-v2.0-i2v",
+        "i2v_prompt": "Animate the storyboard into a high-cut-density fight sequence, rapid action, motion blur, impact frames.",
+        "i2v_images_list": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "16:9",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "39806156-f8f8-4f88-b1c3-c3ba866fc8f2",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Storyboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Storyboard": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ea026d02-bdf1-4025-b4cb-d7a5279418af",
+  "id": "9fabf259-0fd9-4aed-9e4f-936528943dfd",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

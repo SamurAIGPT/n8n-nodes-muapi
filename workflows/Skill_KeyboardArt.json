@@ -1,0 +1,65 @@
+{
+  "name": "MuAPI \u2014 Keyboard Keycap Art (Ideogram)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "e90436fd-a741-4937-a40f-8b1e7ff069f1",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "ideogram-v3",
+        "prompt": "Top-down photograph of pristine mechanical-keyboard keycaps arranged to spell 'HELLO WORLD' centered on a clean wooden desk, soft natural light, precisely aligned, real keycap legends.",
+        "aspect_ratio": "16:9"
+      },
+      "id": "e1008a24-b79b-4226-a6c4-78a191896eca",
+      "name": "KeyboardArt",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "KeyboardArt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f8c6e570-a480-4b83-b497-1a3f9154b6c5",
+  "id": "bd3d4bfd-7905-4da0-9c20-80ed8390dfdb",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

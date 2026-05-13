@@ -1,0 +1,65 @@
+{
+  "name": "MuAPI \u2014 Instagram Post (Nano-Banana 2)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "c2ea62f3-3af0-4b47-a7a8-5f3aa1def3ca",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-2",
+        "prompt": "Aesthetic Instagram post, square 1:1, flat lay of ceramic coffee cup, fresh croissant, and an open notebook on a beige linen background, warm morning light from the upper-left, leave breathing room for caption.",
+        "aspect_ratio": "1:1"
+      },
+      "id": "e8edf805-49fc-40ba-9141-ae0e0723082d",
+      "name": "IGPost",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "IGPost",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "663f5f01-9e19-479b-8ab1-11a8bb2a6e06",
+  "id": "94e437cc-8cea-4fa7-beae-53b975fca3da",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

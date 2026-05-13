@@ -1,0 +1,131 @@
+{
+  "name": "MuAPI \u2014 Music Video (Image + Veo + Suno)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "393637d1-dd36-4c41-8c99-03e24b9669fa",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-pro",
+        "prompt": "Synthwave city skyline at night, neon horizon, lone figure on rooftop.",
+        "aspect_ratio": "16:9"
+      },
+      "id": "1b152653-d740-4a17-baf4-095c95756c27",
+      "name": "Keyframe",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "veo3.1-i2v",
+        "i2v_prompt": "Slow camera dolly toward the figure as neon lights pulse with the beat.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "16:9",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "b9d770a3-1697-4e63-9400-c9e2967f61d2",
+      "name": "Shot",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "audio",
+        "model": "suno-create",
+        "suno_prompt": "Retro synthwave instrumental, 80 BPM, lush analog pads, driving arpeggio, cinematic build.",
+        "audio_prompt": "Retro synthwave instrumental, 80 BPM, lush analog pads, driving arpeggio, cinematic build.",
+        "suno_style": "synthwave",
+        "suno_model": "chirp-v4",
+        "suno_instrumental": true
+      },
+      "id": "b35ef141-7cc0-4abb-b920-d97ac7f27731",
+      "name": "Music",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        980,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Keyframe",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Music",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Keyframe": {
+      "main": [
+        [
+          {
+            "node": "Shot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b6837dad-1435-41e7-858e-f7b5eb8941e3",
+  "id": "52bf6232-cf00-4555-8eba-e8ddde07f40c",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

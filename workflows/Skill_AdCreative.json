@@ -1,0 +1,65 @@
+{
+  "name": "MuAPI \u2014 Ad Creative (Nano-Banana Pro)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "0dd8e25f-3f49-4354-9e0a-d06cb0435513",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-pro",
+        "prompt": "High-converting ad creative, 4:5 portrait, product hero of a premium skincare bottle on glossy marble, dewdrops, soft natural highlight, headline space reserved at the top reading 'GLOW DAILY'.",
+        "aspect_ratio": "4:5"
+      },
+      "id": "9ee78671-df70-415d-a59a-0a2eaa62b9cf",
+      "name": "AdCreative",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "AdCreative",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5e536c6e-7fc2-4b65-9e84-e23805d5fe0a",
+  "id": "5952da1e-d89d-4b53-a83e-99b8c3e01589",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

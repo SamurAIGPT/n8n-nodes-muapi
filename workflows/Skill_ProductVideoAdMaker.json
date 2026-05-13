@@ -1,0 +1,102 @@
+{
+  "name": "MuAPI \u2014 Product Video Ad Maker",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "9a1dbc04-38ea-4d8e-be34-63cdc8f8abd6",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "flux-2-pro-edit",
+        "i2i_prompt": "Re-render the product on a polished black surface with theatrical rim light. Studio commercial feel.",
+        "images_list": "https://example.com/product.jpg",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "ec1d15ee-6e44-412a-989d-1b3d280f9fc4",
+      "name": "Edit",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "wan2.5-i2v",
+        "i2v_prompt": "High-end ad shot: slow camera arc around the product, soft particle drift, premium commercial tone.",
+        "i2v_images_list": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "16:9",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "594aa124-d77a-4090-9e3b-a4384ed04141",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Edit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2b56faa4-cb1f-4ba3-ac4d-7cd6f1dbe525",
+  "id": "a70e37e7-f0db-464b-b9a6-06f161e9488c",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

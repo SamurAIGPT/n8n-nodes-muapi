@@ -1,0 +1,102 @@
+{
+  "name": "MuAPI \u2014 Interior Design + Walkthrough",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "daa2087b-2c7a-40a9-824b-4276212a7e2f",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "flux-kontext-pro-i2i",
+        "i2i_prompt": "Redesign this room in Japandi style \u2014 light oak floor, off-white walls, low linen sofa, large floor lamp, indoor plant. Keep the geometry.",
+        "images_list": "https://example.com/room.jpg",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "da1891d0-4c14-4635-98b4-08fe045c9dc2",
+      "name": "Redesign",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "kling-v3-pro-i2v",
+        "i2v_prompt": "Slow architectural dolly through the redesigned space. Soft daylight.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "16:9",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "f942cfbf-624c-480e-b96e-7ec5aa349c20",
+      "name": "Walkthrough",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Redesign",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redesign": {
+      "main": [
+        [
+          {
+            "node": "Walkthrough",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "dd8db18e-290f-4d80-9a53-7a63d0378938",
+  "id": "e7203c25-90f7-4908-bacd-93267b8fb64b",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

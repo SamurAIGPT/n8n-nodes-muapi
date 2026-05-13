@@ -1,0 +1,92 @@
+{
+  "name": "MuAPI \u2014 Logo + Monogram (Ideogram + Nano-Banana)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "1458c4d1-1e12-44e4-bdc9-d177e3aad601",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "ideogram-v3",
+        "prompt": "Wordmark logo reading 'AURORA' in clean geometric sans-serif. Monochromatic deep navy, flat vector, isolated on pure white.",
+        "aspect_ratio": "1:1"
+      },
+      "id": "18e278a7-f489-47d7-86c1-799736a823fc",
+      "name": "Logo",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-pro",
+        "prompt": "Monogram of the letter 'A' as a geometric lockup, single color, flat vector, isolated white background, centered, scalable.",
+        "aspect_ratio": "1:1"
+      },
+      "id": "8ddfb564-bf5e-455c-ab1b-f5ca3d756170",
+      "name": "Monogram",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Logo",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Monogram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b16c15f7-eb5a-479c-9a04-b8d8da6f3ba8",
+  "id": "4d35f9ea-53ce-4792-9c36-58d077e28784",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

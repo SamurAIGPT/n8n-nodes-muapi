@@ -1,0 +1,119 @@
+{
+  "name": "MuAPI \u2014 Brand Kit (Logo + Palette + Type)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "578a2aad-ee89-4838-bb8e-8069ec6dc320",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-pro",
+        "prompt": "Logo concept for 'LUMEN' \u2014 minimalist sun + arc mark, single color, vector flat, isolated on white, centered.",
+        "aspect_ratio": "1:1"
+      },
+      "id": "9c894070-550c-4c86-9140-82aa769dabd6",
+      "name": "Logo",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "gpt-image-2",
+        "prompt": "Brand color palette moodboard, 5 swatch chips horizontally, hex codes under each, premium magazine style, soft paper texture.",
+        "aspect_ratio": "16:9"
+      },
+      "id": "18af2199-f9bc-4fd5-94df-1dc353a2bfdd",
+      "name": "Palette",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-pro",
+        "prompt": "Typography pairing sheet \u2014 large display sans-serif heading 'LUMEN', elegant serif subheading beneath, on cream paper, editorial layout.",
+        "aspect_ratio": "4:3"
+      },
+      "id": "22ded736-92f8-4bc6-a2d7-fbea56c8a356",
+      "name": "Typography",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        980,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Logo",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Palette",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Typography",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6a4540fa-c2e3-4a60-bc91-6b45905f8448",
+  "id": "85bd9259-787a-4505-b95c-fcdad4d9c646",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

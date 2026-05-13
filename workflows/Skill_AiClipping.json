@@ -1,0 +1,66 @@
+{
+  "name": "MuAPI \u2014 AI Clipping (viral 9:16)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "fb0ea810-1185-4903-8bc0-bf53bec38ebb",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "videoEdit",
+        "model": "ai-clipping",
+        "clip_video_url": "https://example.com/source.mp4",
+        "clip_num_highlights": 5,
+        "clip_aspect_ratio": "9:16"
+      },
+      "id": "9ddba97e-fab9-4eda-8111-7e31cd1d33f7",
+      "name": "Clip",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Clip",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "546f5d8e-c54a-4091-8918-eae10edcf63a",
+  "id": "2c1d87c7-f5d2-483c-9a96-864210a83850",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

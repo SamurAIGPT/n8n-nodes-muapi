@@ -1,0 +1,102 @@
+{
+  "name": "MuAPI \u2014 3D Logo Animation (Edit + Veo)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "b6de5d4b-8d5d-4040-b962-7bd0e00b5ba1",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Convert this flat 2D logo into a premium 3D version \u2014 beveled edges, soft metallic shading, on a deep gradient background.",
+        "images_list": "https://example.com/logo2d.png",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "c774479a-ddca-41cb-943f-c57f1f8b39f4",
+      "name": "Logo3D",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "veo3.1-fast-i2v",
+        "i2v_prompt": "The 3D logo rotates slowly, sweeping specular highlight passes across the bevel. Premium product reveal feel.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "16:9",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "de91398d-c380-4721-bb94-75e22f59476c",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Logo3D",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Logo3D": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "dce72b67-cdb7-400d-9823-d349827c495d",
+  "id": "2146ebe2-87b2-4b81-a069-4063157dd3b8",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

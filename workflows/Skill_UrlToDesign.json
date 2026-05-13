@@ -1,0 +1,66 @@
+{
+  "name": "MuAPI \u2014 URL to Design Redesign",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "a7b2025c-4322-495e-aa80-eda59d8443af",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "gpt4o-edit",
+        "i2i_prompt": "Redesign this website screenshot with modern UI: cleaner hierarchy, 8pt spacing, generous whitespace, modern type, vibrant accent color.",
+        "images_list": "https://example.com/site-screenshot.jpg",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "2a3ed7c7-2e91-4517-b589-c691f624a70f",
+      "name": "Redesign",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Redesign",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7358038f-1b1f-4043-b7fb-baff2a06269f",
+  "id": "c346012d-6f25-4e55-97e4-0e31a1d17dde",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

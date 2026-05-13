@@ -1,0 +1,101 @@
+{
+  "name": "MuAPI \u2014 Talking Baby Video",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "5645bb96-fdb9-4d0a-9dfc-94f47ae59e32",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "wan2.5-t2i",
+        "prompt": "Photorealistic 1-year-old baby wearing a tiny astronaut costume, studio backdrop, dramatic key light. Family-friendly.",
+        "aspect_ratio": "9:16"
+      },
+      "id": "60f8f487-8186-4930-a00f-fd663fda0019",
+      "name": "Baby",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "grok-i2v",
+        "i2v_prompt": "The baby grins and speaks expressively to the camera, hands moving in cute gestures. Soft handheld feel.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "9:16",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "7bf0bd1c-0bd7-4cc9-8fcd-a4ec21f2d6c3",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Baby",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Baby": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "cea48426-15d3-42db-aa62-c4fd3800ce16",
+  "id": "283316bd-70ad-4e64-8573-32e3a1cf081e",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

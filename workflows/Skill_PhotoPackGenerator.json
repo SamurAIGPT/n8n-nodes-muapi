@@ -1,0 +1,66 @@
+{
+  "name": "MuAPI \u2014 Photo Pack (Identity-Lock)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "6cf5e076-4feb-4190-b53a-89aba5e206f1",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "photo-pack",
+        "i2i_prompt": "Generate a professional LinkedIn-style headshot pack. Preserve the exact facial identity from the reference image. Do not modify eye shape, nose, jawline, cheekbones, or face proportions.",
+        "images_list": "https://example.com/face.jpg",
+        "i2i_aspect_ratio": "1:1"
+      },
+      "id": "485d0d57-d75d-487e-ae45-a83ebe1dc291",
+      "name": "PhotoPack",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "PhotoPack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "88468d71-ad35-4695-a94e-8ecc19bb1244",
+  "id": "d04a8231-1376-4e31-a153-1907905cb64f",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

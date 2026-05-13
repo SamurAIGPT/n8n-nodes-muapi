@@ -1,0 +1,101 @@
+{
+  "name": "MuAPI \u2014 UGC Ad Workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "e7711e80-640d-4083-9157-7d767f7cc209",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "gpt-image-2",
+        "prompt": "Authentic UGC selfie scene \u2014 young woman in cozy kitchen holding a branded snack bar, natural window light.",
+        "aspect_ratio": "9:16"
+      },
+      "id": "fc0e3f8f-7c00-4b10-9c50-ffb0b2a5bae7",
+      "name": "Scene",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "veo3.1-i2v",
+        "i2v_prompt": "Subject takes a bite, reacts with genuine delight, talks to camera. Handheld feel.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "9:16",
+        "i2v_duration": 8,
+        "i2v_resolution": "720p"
+      },
+      "id": "3be38bec-497e-41e3-99ee-2df217da8b68",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Scene",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scene": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c5a96576-2a59-4db3-8c97-2a6011b79a91",
+  "id": "c3edc88d-e53d-4759-857b-1b17bc49e495",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

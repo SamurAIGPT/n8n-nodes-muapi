@@ -1,0 +1,68 @@
+{
+  "name": "MuAPI \u2014 Cinema Director (Kling V3 Pro)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "2bf108ec-6249-4912-b76c-221c9f60acf2",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "kling-v3-pro-i2v",
+        "i2v_prompt": "Director brief: Lens 35mm. Move: slow dolly-in. Subject holds gaze. Lighting: warm key, cool rim. Atmosphere: rain mist particles.",
+        "i2v_image_url": "https://example.com/ref.jpg",
+        "i2v_aspect_ratio": "21:9",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "aa692f9b-d27d-4f83-9a0b-9fde4539affe",
+      "name": "Shot",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Shot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4c58b5f4-8e09-4c71-8b0e-b219c4d2f3e7",
+  "id": "00cc8c54-3f21-4434-bbe9-c426a3971a66",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

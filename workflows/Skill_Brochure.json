@@ -1,0 +1,92 @@
+{
+  "name": "MuAPI \u2014 Brochure (Cover + Spread)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "7c3c9056-6101-4c08-a2f7-9020d9f13347",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "seedream-v4.5",
+        "prompt": "Brochure cover for a coastal real-estate brand \u2014 large hero photo of an ocean villa at sunset, brand name 'AZURE STAYS' set in elegant serif at the bottom, premium magazine layout.",
+        "aspect_ratio": "3:4"
+      },
+      "id": "14634216-c22c-4830-a606-9481ca227657",
+      "name": "Cover",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "seedream-v4.5",
+        "prompt": "Brochure inner spread (landscape), two pages, left page: full-bleed lifestyle photo. Right page: paragraph copy block, headline, three small spot photos. Same brand palette.",
+        "aspect_ratio": "16:9"
+      },
+      "id": "0ebd56b0-e036-4600-a7e1-ed8bdb01483d",
+      "name": "Spread",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Cover",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Spread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a084eeec-ba8d-44b0-9d56-393811e43fe8",
+  "id": "dcaa2604-e51e-48e8-ab7e-4defcc16edeb",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

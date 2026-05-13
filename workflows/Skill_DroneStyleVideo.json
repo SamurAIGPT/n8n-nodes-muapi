@@ -1,0 +1,67 @@
+{
+  "name": "MuAPI \u2014 Drone Style Video (Veo 3.1)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "5c1b5056-7ed7-4e08-bbd5-ee2ea3e0a48e",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToVideo",
+        "model": "veo3.1",
+        "t2v_prompt": "Aerial drone footage. Subject: turquoise coastline with cliffs. Move: sweeping orbit at 80m altitude. Time: golden hour. Lens: 24mm wide. Stabilized cinematic feel.",
+        "t2v_aspect_ratio": "16:9",
+        "t2v_duration": 8,
+        "t2v_resolution": "1080p"
+      },
+      "id": "3078a71d-a08e-4753-815d-3b248df9ecfd",
+      "name": "Drone",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Drone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "845c8ed3-dc10-413f-a213-0767c4e9c368",
+  "id": "3460be01-62e6-4629-8787-ce2224fc3d64",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

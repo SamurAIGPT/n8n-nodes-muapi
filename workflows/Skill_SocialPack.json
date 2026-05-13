@@ -1,0 +1,122 @@
+{
+  "name": "MuAPI \u2014 Social Pack (IG/TT/X reframe)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "66305886-79cd-4f6a-8047-1c5abce58166",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Reframe to 1:1 Instagram square, preserve subject and brand layout, extend the background naturally.",
+        "images_list": "https://example.com/hero.jpg",
+        "i2i_aspect_ratio": "1:1"
+      },
+      "id": "ddfaece1-c6d7-44ff-98b7-87ce57e5d3f2",
+      "name": "Instagram",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Reframe to 9:16 TikTok vertical, preserve subject, extend background.",
+        "images_list": "https://example.com/hero.jpg",
+        "i2i_aspect_ratio": "9:16"
+      },
+      "id": "7d18e62d-0f64-47c0-927a-2179fd236ea7",
+      "name": "TikTok",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Reframe to 16:9 Twitter/X landscape, preserve subject, extend background.",
+        "images_list": "https://example.com/hero.jpg",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "f1985ddc-bc27-4cff-b80e-68162a3e6c4b",
+      "name": "Twitter",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        980,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Instagram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "TikTok",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Twitter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "aa637ac2-ce9f-4920-a612-c0c69e607299",
+  "id": "2d09732a-db1f-48bc-b865-72f9daa324b8",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}
