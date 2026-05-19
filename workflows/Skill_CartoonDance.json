@@ -1,0 +1,102 @@
+{
+  "name": "MuAPI \u2014 Cartoon Dance Animation",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "6c3b2738-f45b-4b3a-9204-0cbd5ae5ef65",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Convert the person in @image1 into a Pixar-style 3D stylized character. Preserve identity (face shape, hair, outfit) exactly. Smooth plastic skin, soft rounded features, big expressive eyes, cinematic studio lighting, high-end character sculpting, octane-render quality. Clean studio background.",
+        "images_list": "https://example.com/person.jpg",
+        "i2i_aspect_ratio": "9:16"
+      },
+      "id": "6dfa710b-da9e-43a2-92d3-d04b3f9727d4",
+      "name": "Toon",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "kling-v2.6-std-motion-control",
+        "i2v_prompt": "Smooth, fluid 3D character animation. Energetic, lively dance moves with dynamic motion. Consistent character details, Pixar animation quality.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "9:16",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "42026270-a575-494d-997a-87d5875feeef",
+      "name": "Dance",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Toon",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Toon": {
+      "main": [
+        [
+          {
+            "node": "Dance",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "01af26bf-1c96-4e89-ad0c-cb3d1389ca0f",
+  "id": "1cf0ff44-c50b-454f-b4a0-7a097f22a1a6",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

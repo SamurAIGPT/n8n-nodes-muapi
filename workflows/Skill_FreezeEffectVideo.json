@@ -1,0 +1,68 @@
+{
+  "name": "MuAPI \u2014 Freeze Effect Video (Time-Stop)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "77556cbb-f710-42f7-bb5f-0f899b5618dd",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "seedance-v2.0-i2v",
+        "i2v_prompt": "Ultra-realistic, shot on Arri Alexa Mini, 35mm lens, moody sports bar interior with neon accents, volumetric haze, shallow DOF. The person from @image1 walks confidently through a packed crowd and snaps their fingers \u2014 a spherical shockwave ripples outward and everything freezes mid-motion: golden arcs of beer suspended in air, popcorn floating, people locked mid-cheer. Only the subject moves, tracking backward through the frozen scene, plucks a kernel from midair, whispers 'perfect', then snaps again \u2014 a reverse shockwave resumes motion and the celebration explodes back to life.",
+        "i2v_image_url": "https://example.com/person.jpg",
+        "i2v_aspect_ratio": "16:9",
+        "i2v_duration": 10,
+        "i2v_resolution": "720p"
+      },
+      "id": "0d24b683-7a47-49d0-8817-6780b63e69d8",
+      "name": "Freeze",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Freeze",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0c99b9fb-58bf-4a44-ac68-4f1fafa03812",
+  "id": "0df29e80-1811-4423-964d-beced9948464",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

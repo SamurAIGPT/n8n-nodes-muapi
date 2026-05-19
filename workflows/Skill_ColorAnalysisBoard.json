@@ -1,0 +1,66 @@
+{
+  "name": "MuAPI \u2014 Color Analysis Board (GPT-Image 2 Edit)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "f8c635f6-0578-417c-aa12-692491d224c2",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "gpt-image-2-image-to-image",
+        "i2i_prompt": "Create a high-end editorial \"Color Analysis Board\" from this portrait in a luxury fashion magazine style (Dior / Ralph Lauren aesthetic). Clean beige/ivory background, warm tones, soft diffused lighting, ultra-detailed photorealistic, minimal elegant typography, grid-based layout. Main portrait centered with enhanced natural beauty (same identity). Panels: Your Best Colors (fabric swatches), Undertone (warm/neutral/cool), Colors to Avoid, Neutrals that Work, Prints that Flatter, Makeup guide (eyeshadow/blush/lips/highlighter), You in Your Colors (outfit variations), Hair colors, Jewelry, Style notes, Capsule wardrobe (outfits/shoes/bags).",
+        "images_list": "https://example.com/portrait.jpg",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "83eca61a-9b59-44ce-a648-4fab8e4bd89d",
+      "name": "Board",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Board",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9ca76a9e-c3d6-4954-bb15-8c6e56c8c8ef",
+  "id": "cd8eeb1d-1892-4cfd-8549-01abf2320a49",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}
