@@ -464,6 +464,70 @@ WORKFLOWS = {
             "https://example.com/couple.jpg", "1:1")}],
         "links": [],
     },
+    "Skill_ColorAnalysisBoard.json": {
+        "name": "MuAPI — Color Analysis Board (GPT-Image 2 Edit)",
+        "nodes": [{"name": "Board", "params": i2i("gpt-image-2-image-to-image",
+            "Create a high-end editorial \"Color Analysis Board\" from this portrait "
+            "in a luxury fashion magazine style (Dior / Ralph Lauren aesthetic). "
+            "Clean beige/ivory background, warm tones, soft diffused lighting, "
+            "ultra-detailed photorealistic, minimal elegant typography, grid-based layout. "
+            "Main portrait centered with enhanced natural beauty (same identity). "
+            "Panels: Your Best Colors (fabric swatches), Undertone (warm/neutral/cool), "
+            "Colors to Avoid, Neutrals that Work, Prints that Flatter, Makeup guide "
+            "(eyeshadow/blush/lips/highlighter), You in Your Colors (outfit variations), "
+            "Hair colors, Jewelry, Style notes, Capsule wardrobe (outfits/shoes/bags).",
+            "https://example.com/portrait.jpg", "16:9")}],
+        "links": [],
+    },
+    "Skill_MultiAngleReshoot.json": {
+        "name": "MuAPI — Multi-Angle Reshoot (Fish-eye + Low-angle)",
+        "nodes": [
+            {"name": "FishEye", "params": i2i("nano-banana-pro-edit",
+                "Re-render the exact same scene from @image1 with a fish-eye lens, "
+                "dramatic curvature at the edges. Preserve subject identity exactly.",
+                "https://example.com/subject.jpg", "1:1")},
+            {"name": "LowAngle", "params": i2i("nano-banana-pro-edit",
+                "Re-render the exact same scene from @image1 as a low-angle hero shot, "
+                "camera looking up at the subject. Preserve identity exactly.",
+                "https://example.com/subject.jpg", "1:1"),
+                "pos": (720, 300)},
+        ],
+        "extra_trigger_targets": ["LowAngle"],
+        "links": [],
+    },
+    "Skill_CartoonDance.json": {
+        "name": "MuAPI — Cartoon Dance Animation",
+        "nodes": [
+            {"name": "Toon", "params": i2i("nano-banana-2-edit",
+                "Convert the person in @image1 into a Pixar-style 3D stylized character. "
+                "Preserve identity (face shape, hair, outfit) exactly. Smooth plastic skin, "
+                "soft rounded features, big expressive eyes, cinematic studio lighting, "
+                "high-end character sculpting, octane-render quality. Clean studio background.",
+                "https://example.com/person.jpg", "9:16")},
+            {"name": "Dance", "params": i2v_url(
+                "kling-v2.6-std-motion-control",
+                "Smooth, fluid 3D character animation. Energetic, lively dance moves with "
+                "dynamic motion. Consistent character details, Pixar animation quality.",
+                PREV_URL, "9:16", 5, "720p"),
+                "pos": (720, 300)},
+        ],
+        "links": [("Toon", "Dance")],
+    },
+    "Skill_FreezeEffectVideo.json": {
+        "name": "MuAPI — Freeze Effect Video (Time-Stop)",
+        "nodes": [{"name": "Freeze", "params": i2v_url(
+            "seedance-v2.0-i2v",
+            "Ultra-realistic, shot on Arri Alexa Mini, 35mm lens, moody sports bar interior "
+            "with neon accents, volumetric haze, shallow DOF. The person from @image1 walks "
+            "confidently through a packed crowd and snaps their fingers — a spherical "
+            "shockwave ripples outward and everything freezes mid-motion: golden arcs of beer "
+            "suspended in air, popcorn floating, people locked mid-cheer. Only the subject "
+            "moves, tracking backward through the frozen scene, plucks a kernel from midair, "
+            "whispers 'perfect', then snaps again — a reverse shockwave resumes motion and "
+            "the celebration explodes back to life.",
+            "https://example.com/person.jpg", "16:9", 10, "720p")}],
+        "links": [],
+    },
     "Skill_Brochure.json": {
         "name": "MuAPI — Brochure (Cover + Spread)",
         "nodes": [
