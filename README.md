@@ -2,6 +2,11 @@
 
 [n8n](https://n8n.io/) community nodes for [MuAPI](https://muapi.ai) — a generative media AI platform supporting text-to-image, image-to-video, audio generation, image enhancement, and more.
 
+## Related Projects
+
+- [n8n-nodes-seedance2](https://github.com/Anil-matcha/n8n-nodes-seedance2) — n8n community node specifically for Seedance 2 video generation
+- [Open-Generative-AI](https://github.com/Anil-matcha/Open-Generative-AI) — Free self-hosted UI for the same MuAPI models
+
 ## Nodes
 
 ### MuAPI (Predictor)
