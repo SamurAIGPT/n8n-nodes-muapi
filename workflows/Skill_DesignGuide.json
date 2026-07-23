@@ -1,0 +1,119 @@
+{
+  "name": "MuAPI \u2014 Design Guide (Palette + Type + Components)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "368ea75f-74b8-4cea-bcba-1dbdef855bbe",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "gpt-image-2",
+        "prompt": "Page 1: color palette page \u2014 5 large swatches with hex codes and names, premium design-system layout.",
+        "aspect_ratio": "3:2"
+      },
+      "id": "96f50f05-7728-43dd-9d6f-668939e91b69",
+      "name": "Palette",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-pro",
+        "prompt": "Page 2: typography pairings \u2014 H1/H2/H3 + body samples, two type families displayed side-by-side, editorial layout.",
+        "aspect_ratio": "3:2"
+      },
+      "id": "bd67b05e-d58c-4637-8308-e3bd5d22e1b8",
+      "name": "Typography",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-pro",
+        "prompt": "Page 3: UI component preview \u2014 buttons, input fields, cards, navbar, all on a soft neutral background.",
+        "aspect_ratio": "3:2"
+      },
+      "id": "9217b109-cead-4395-9dc6-475046215bda",
+      "name": "Components",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        980,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Palette",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Typography",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Components",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d777c1a5-311c-4ec0-91d5-622fc026a8cf",
+  "id": "49e9be56-f2af-4ffb-9b15-408391062458",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

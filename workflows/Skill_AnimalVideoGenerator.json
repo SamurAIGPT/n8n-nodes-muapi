@@ -1,0 +1,101 @@
+{
+  "name": "MuAPI \u2014 Animal Vlogger Video",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "c49c017b-b552-48ee-b906-b250df71e0e3",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-pro",
+        "prompt": "Photorealistic anthropomorphic golden retriever in a hoodie, sitting at a desk like a YouTube vlogger, ring light, microphone.",
+        "aspect_ratio": "9:16"
+      },
+      "id": "1ba82aa6-681c-4c67-89c5-b97a69e58dfa",
+      "name": "Character",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "veo3.1-fast-i2v",
+        "i2v_prompt": "The dog speaks expressively into the microphone, paws gesturing. Subtle camera bob.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "9:16",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "45bac805-63f6-4211-b71e-5d2f2601a7cf",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Character",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Character": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "26ef219a-609c-40f0-940d-6dd861e9c15e",
+  "id": "aeca8781-1d49-46a7-bce7-01aee53ade29",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "name": "MuAPI \u2014 Image-to-3D (Tripo3D P1)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "94b01d4c-c0f0-40e2-aab5-e43bbc407d89",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageTo3D",
+        "model": "tripo3d-p1-image-to-3d",
+        "threeD_prompt": "",
+        "threeD_images_list": "https://example.com/ref.jpg"
+      },
+      "id": "f8d4876a-5e01-441e-b32c-9b7a86ace4eb",
+      "name": "To3D",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "To3D",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "777004b7-e2d0-48ce-8ede-d209ddda1733",
+  "id": "55101deb-b64c-41c9-b6a8-c961e25dc87e",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

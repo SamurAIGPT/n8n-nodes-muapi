@@ -1,0 +1,66 @@
+{
+  "name": "MuAPI \u2014 YouTube Shorts Auto-Clip",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "0d5caaa3-4ee9-428d-9182-fef05db655b2",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "videoEdit",
+        "model": "ai-clipping",
+        "clip_video_url": "https://example.com/long-form.mp4",
+        "clip_num_highlights": 5,
+        "clip_aspect_ratio": "9:16"
+      },
+      "id": "b92804bf-6711-4c2b-ad25-1e8b6f6f9971",
+      "name": "Shorts",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Shorts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bb5374b5-b009-486e-a37a-67f92f2af629",
+  "id": "e7e82261-59c1-4086-9550-b28def25a7e4",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

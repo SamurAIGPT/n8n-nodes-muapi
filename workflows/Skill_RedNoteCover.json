@@ -1,0 +1,65 @@
+{
+  "name": "MuAPI \u2014 RedNote Cover (Seedream V4.5)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "9c5bc592-e76e-46ef-aa70-b012651b452e",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "seedream-v4.5",
+        "prompt": "Xiaohongshu/RedNote cover, 3:4 portrait, vibrant lifestyle aesthetic, girl holding a matcha drink, soft pastel palette, bold Chinese-style title block at the top with crisp hand-drawn typography.",
+        "aspect_ratio": "3:4"
+      },
+      "id": "1ff15092-46f0-453b-904b-d035da7846f3",
+      "name": "Cover",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Cover",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "244f11fd-be73-43db-80a0-e71ace861eca",
+  "id": "469e4106-cf1b-4b88-b954-3c234302dc11",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

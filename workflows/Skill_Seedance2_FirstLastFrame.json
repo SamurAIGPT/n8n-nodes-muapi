@@ -1,0 +1,68 @@
+{
+  "name": "MuAPI \u2014 Seedance 2 First-Last Frame",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "54a687ce-f9bc-435b-b21f-71371f9c65a0",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "seedance-2-first-last-frame",
+        "i2v_prompt": "Smoothly interpolate between the two frames with naturalistic motion.",
+        "i2v_images_list": "https://example.com/first.jpg,https://example.com/last.jpg",
+        "i2v_aspect_ratio": "16:9",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "1edf76a2-187c-41fc-bf1d-1f5a80cbc076",
+      "name": "FLF",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "FLF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "49a69615-65a2-4be7-80da-26e3b4315cbf",
+  "id": "83bc2f1f-d586-4d50-8807-da7474d0e325",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

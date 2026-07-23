@@ -1,0 +1,66 @@
+{
+  "name": "MuAPI \u2014 Action Figure Generator",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "cffc71af-a001-4ec7-b7c1-12a1242110d3",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Convert the person in the reference image into a 6-inch collectible action figure on a blister-pack card with logo and tagline. Preserve the face exactly. Studio product-shot lighting.",
+        "images_list": "https://example.com/person.jpg",
+        "i2i_aspect_ratio": "3:4"
+      },
+      "id": "62360389-c09f-49b9-869b-d68134beb6f7",
+      "name": "ActionFigure",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "ActionFigure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f1e8bf32-769b-40c3-935a-6ee6b000661e",
+  "id": "8cb65003-0ee3-4e64-8abb-e27652f7ae82",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

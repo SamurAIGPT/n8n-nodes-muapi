@@ -1,0 +1,68 @@
+{
+  "name": "MuAPI \u2014 One-Shot Continuous Video (Veo 3.1 I2V)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "33c27cdf-debf-46a7-aa56-368892e4ac9a",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "veo3.1-i2v",
+        "i2v_prompt": "Continuous one-shot: camera glides through the doorway, follows the subject down the corridor, ends on their face in close-up. No cuts, no edits, single take.",
+        "i2v_image_url": "https://example.com/start.jpg",
+        "i2v_aspect_ratio": "21:9",
+        "i2v_duration": 8,
+        "i2v_resolution": "720p"
+      },
+      "id": "ff0fe6d4-565a-410c-a0c1-c8da5a0ad857",
+      "name": "OneShot",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "OneShot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4800d2a4-fc0f-483f-b46e-1197a0fe48f5",
+  "id": "fafbca39-c45c-4d4c-91db-6f336cee20ea",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

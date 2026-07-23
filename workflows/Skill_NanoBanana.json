@@ -1,0 +1,65 @@
+{
+  "name": "MuAPI \u2014 Nano-Banana Pro T2I",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "8a4956f1-6b6e-4fc3-a8b9-8264bff2aa66",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-pro",
+        "prompt": "Subject: a single product hero shot. Action: floating with subtle rotation. Context: minimalist studio with seamless cyclorama. Composition: 85mm lens, f/2.8, centered. Lighting: soft volumetric key from upper-left, gentle rim light. Style: cinematic, photorealistic, 4K commercial.",
+        "aspect_ratio": "1:1"
+      },
+      "id": "bae1eed5-7fc4-4195-8352-ce78a8c2b7f4",
+      "name": "NanoBanana",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "NanoBanana",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d4cae07c-6a4c-4cd7-ad26-cdcb7a2fd2a2",
+  "id": "a0f9106c-c5f6-4a55-9587-5bb3fcd931ac",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

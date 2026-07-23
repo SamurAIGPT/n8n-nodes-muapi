@@ -1,0 +1,65 @@
+{
+  "name": "MuAPI \u2014 Blog Header (GPT-Image 2)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "12c89f47-6127-4204-bd34-af3fa399c5d0",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "gpt-image-2",
+        "prompt": "Professional blog header image, 1200x628, abstract illustration of data flowing through circuits, deep blue and electric purple palette, modern flat design with subtle gradients, plenty of negative space.",
+        "aspect_ratio": "16:9"
+      },
+      "id": "f9703616-77ee-43ae-b625-56990e424adb",
+      "name": "Header",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Header",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c2e3402c-061a-4c60-9993-9bb55039fa2f",
+  "id": "1bd1de58-8822-4e0c-bd9d-6597d7ed986e",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "name": "MuAPI \u2014 Text-to-3D (Meshy 6)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "ae33034a-2406-4ab0-bbd7-319b1e6ad514",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageTo3D",
+        "model": "meshy-6-text-to-3d",
+        "threeD_prompt": "A stylized treasure chest, low-poly, fantasy game-ready asset, wood and brass, PBR textures.",
+        "threeD_images_list": ""
+      },
+      "id": "ddaa2086-edbe-4d90-9820-e4df8690c729",
+      "name": "To3D",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "To3D",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "92bb3ab6-ae5c-4c6a-be10-125cf6041b59",
+  "id": "20309e0d-291a-4576-afd2-58df5acfdb7c",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

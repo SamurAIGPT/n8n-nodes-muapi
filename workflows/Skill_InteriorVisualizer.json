@@ -1,0 +1,99 @@
+{
+  "name": "MuAPI \u2014 Interior Visualizer (Empty \u2192 Furnished)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "ffb16bf7-3c86-432c-b541-cc5e69f57db5",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "gpt-image-2",
+        "prompt": "Empty modern living room, large window with soft morning light, matte beige walls, light oak parquet floor, photo-realistic.",
+        "aspect_ratio": "16:9"
+      },
+      "id": "449352e8-8f47-4468-8a1a-9dd4243b402a",
+      "name": "EmptyRoom",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Furnish this room: low linen sofa, oak coffee table, soft rug, indoor plant, floor lamp, framed art on the wall. Preserve geometry.",
+        "images_list": "={{ $json.outputs[0] }}",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "0f042b52-347c-43af-8e72-1e1b69184250",
+      "name": "Furnish",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "EmptyRoom",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "EmptyRoom": {
+      "main": [
+        [
+          {
+            "node": "Furnish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "837362a0-712f-404e-a12b-7e12df3f8f14",
+  "id": "e28637f2-4262-4989-8991-73f838feaae5",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

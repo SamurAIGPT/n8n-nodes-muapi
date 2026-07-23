@@ -1,0 +1,65 @@
+{
+  "name": "MuAPI \u2014 Nano-Banana 2 T2I",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "c5b81473-6ec1-4a1a-997a-00fa5b0b0d2a",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "nano-banana-2",
+        "prompt": "Reasoning brief: a stoic robot barista with exposed copper wiring, pouring a latte art leaf with mechanical precision, inside a neon-lit cyberpunk cafe at midnight, 85mm lens, f/1.8, volumetric blue rim light.",
+        "aspect_ratio": "3:2"
+      },
+      "id": "6faa49ef-c2a2-4906-a749-8890ff6a2456",
+      "name": "NanoBanana2",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "NanoBanana2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "18575d0d-fb84-4f84-82a3-870d93ea2274",
+  "id": "722f9e83-4eda-46cd-9e9a-09ea00af6133",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

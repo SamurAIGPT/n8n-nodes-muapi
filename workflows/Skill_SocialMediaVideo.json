@@ -1,0 +1,101 @@
+{
+  "name": "MuAPI \u2014 Social Media Hero Video",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "09228f5f-d033-47b1-9962-9acc517eb546",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "imagen4-ultra",
+        "prompt": "Brand-aware social hero frame, vertical 9:16, energetic and on-brand for a wellness app \u2014 sunrise yoga silhouette over ocean.",
+        "aspect_ratio": "9:16"
+      },
+      "id": "b43c9d97-bec7-4830-b32a-4a70822c568f",
+      "name": "Hero",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "veo3.1-i2v",
+        "i2v_prompt": "Subtle parallax push-in, waves move, sun rises slightly. Calm pacing for social.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "9:16",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "6df387a6-6222-48bc-b899-e6132970a5f1",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Hero",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hero": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1ba1df2e-09b2-4efe-af89-530e779ff559",
+  "id": "1cc20a9e-daf3-4e06-8d2d-874f6e694d05",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

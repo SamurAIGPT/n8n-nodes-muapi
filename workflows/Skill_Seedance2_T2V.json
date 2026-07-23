@@ -1,0 +1,67 @@
+{
+  "name": "MuAPI \u2014 Seedance 2 Text-to-Video",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "07040356-34c3-4fb3-9769-9d21b5aa493b",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToVideo",
+        "model": "seedance-2-t2v",
+        "t2v_prompt": "Aerial drone push-in over a moonlit desert canyon. Subject: lone figure on the cliff edge. Lens: 24mm. Move: low-altitude orbital. Lighting: silver moon key, warm fill from torch.",
+        "t2v_aspect_ratio": "16:9",
+        "t2v_duration": 5,
+        "t2v_resolution": "720p"
+      },
+      "id": "cde4e770-bae8-4578-a85b-b16e4822a68e",
+      "name": "T2V",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "T2V",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a764677f-0f0c-4ea6-a2cd-018943abe851",
+  "id": "164ec763-f54f-4758-9cf8-fe2bb85a4086",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "name": "MuAPI \u2014 Product Campaign (Hero + Lifestyle + Video)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "9b9dec03-12ec-4e65-b893-265896934fa8",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageEnhance",
+        "model": "product-shot",
+        "product_image_url": "https://example.com/product.jpg",
+        "scene_description": "Premium hero shot, white seamless, soft studio light"
+      },
+      "id": "c60f7100-7a9f-47a8-bdf8-9f36533db435",
+      "name": "HeroShot",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "seedream-edit-v4.5",
+        "i2i_prompt": "Place the product in an aspirational lifestyle scene \u2014 modern kitchen counter, morning sunlight, plants in soft focus background.",
+        "images_list": "https://example.com/product.jpg",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "a7a13374-c884-4867-b32b-dacc096db67c",
+      "name": "Lifestyle",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "kling-v3-pro-i2v",
+        "i2v_prompt": "Slow cinematic dolly across the lifestyle scene, ending on the product hero close-up.",
+        "i2v_image_url": "={{ $('Lifestyle').first().json.outputs[0] }}",
+        "i2v_aspect_ratio": "16:9",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "b8ac92e5-653b-4bdb-a493-b5ccc907f204",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        980,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "HeroShot",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Lifestyle",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lifestyle": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ae874be9-6f68-4bde-adda-1ad277ce3547",
+  "id": "a5036ee9-c261-437e-b1b3-d7b458a7e2ad",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

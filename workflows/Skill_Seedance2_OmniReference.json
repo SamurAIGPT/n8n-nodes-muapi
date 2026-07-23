@@ -1,0 +1,69 @@
+{
+  "name": "MuAPI \u2014 Seedance 2 Omni Reference",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "41bb9d4c-d3af-40f9-9480-539a25e63773",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "seedance-2.0-omni-ref",
+        "i2v_prompt": "Combine character from @image1, prop from @image2, setting from @image3 into a cinematic medium shot.",
+        "omni_aspect_ratio": "16:9",
+        "omni_duration": 5,
+        "omni_images_list": "https://example.com/img1.jpg,https://example.com/img2.jpg,https://example.com/img3.jpg",
+        "omni_video_files": "",
+        "omni_audio_files": ""
+      },
+      "id": "e4a0c3bd-07b5-4e59-ad26-fef4da4050af",
+      "name": "Omni",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Omni",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "735c138d-1890-4b9f-a685-89103f65d8cb",
+  "id": "8e07b34a-7071-48cc-9860-0b6c3934ed9f",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

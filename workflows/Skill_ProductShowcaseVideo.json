@@ -1,0 +1,102 @@
+{
+  "name": "MuAPI \u2014 Product Showcase Video",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "b255c6ba-5b33-4e1f-84eb-069471480f9b",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "seedream-edit-v4.5",
+        "i2i_prompt": "Surround the product with an explosive splash of its key ingredients frozen mid-air. High-end commercial macro.",
+        "images_list": "https://example.com/product.jpg",
+        "i2i_aspect_ratio": "9:16"
+      },
+      "id": "de33ac61-54c3-4fa0-acf6-ce19569d1dcf",
+      "name": "Edit",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "seedance-v1.5-pro-i2v-fast",
+        "i2v_prompt": "Macro motion: ingredients orbit the product, ending on a centered hero shot.",
+        "i2v_images_list": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "9:16",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "3d16091d-cd92-46e3-b112-5ad6c39db229",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Edit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c5b4962f-d765-47ef-8bb9-88d30d515cef",
+  "id": "281ae4f3-e292-4379-9444-394673d58fa4",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

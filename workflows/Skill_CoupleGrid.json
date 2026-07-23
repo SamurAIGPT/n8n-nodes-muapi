@@ -1,0 +1,66 @@
+{
+  "name": "MuAPI \u2014 Couple Grid (Qwen Edit Plus)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "7bcfedea-2274-47ed-88bb-af04542c8c8f",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "qwen-edit-plus",
+        "i2i_prompt": "Create a 6-cell grid (2 rows \u00d7 3 cols) of the couple in @image1 in six romantic poses and outfits. Preserve both identities exactly. Consistent style across cells.",
+        "images_list": "https://example.com/couple.jpg",
+        "i2i_aspect_ratio": "1:1"
+      },
+      "id": "63911ada-2025-478e-b63f-7545aae138e3",
+      "name": "Grid",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Grid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9be47934-adba-4eaa-889e-e870347d16ba",
+  "id": "bd366d42-8ff2-467a-bcab-8b72584efb3b",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "MuAPI \u2014 Selfie with Celebrity",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "39c01ad2-4d30-4acd-aa00-c1733518f3e6",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Generate a realistic BTS selfie of the person in @image1 with the person in @image2, arms-length camera angle, warm event lighting. Preserve both facial identities exactly.",
+        "images_list": "https://example.com/user.jpg,https://example.com/celeb.jpg",
+        "i2i_aspect_ratio": "9:16"
+      },
+      "id": "b06afa71-a549-4b47-a10c-0b67c520d0a8",
+      "name": "Selfie",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "veo3.1-i2v",
+        "i2v_prompt": "Both subjects laugh and turn slightly toward each other. Subtle handheld motion.",
+        "i2v_image_url": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "9:16",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "c3a19a5b-84d1-48cc-a4fd-968d31cbabae",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Selfie",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Selfie": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3c06409c-c5d8-4504-903f-6a86db9972f4",
+  "id": "4cdaf638-69e3-4737-98cc-6cb4a41f33a7",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

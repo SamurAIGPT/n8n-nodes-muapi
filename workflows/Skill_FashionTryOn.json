@@ -1,0 +1,102 @@
+{
+  "name": "MuAPI \u2014 Fashion Try-On + Animate",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "33db7d01-de6c-47e6-a979-761b42b9c9ca",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "qwen-edit-plus",
+        "i2i_prompt": "Dress the person in @image1 with the outfit shown in @image2. Preserve identity and pose. Natural fit and folds, realistic shadows.",
+        "images_list": "https://example.com/person.jpg,https://example.com/outfit.jpg",
+        "i2i_aspect_ratio": "9:16"
+      },
+      "id": "2a118e37-871b-4be4-8159-53fd1b917ba8",
+      "name": "TryOn",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToVideo",
+        "model": "seedance-v1.5-pro-i2v",
+        "i2v_prompt": "The model takes one elegant turn revealing the outfit. Studio runway feel.",
+        "i2v_images_list": "={{ $json.outputs[0] }}",
+        "i2v_aspect_ratio": "9:16",
+        "i2v_duration": 5,
+        "i2v_resolution": "720p"
+      },
+      "id": "3c6c3d5a-1d86-4850-9471-b6ff00aebd58",
+      "name": "Animate",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "TryOn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TryOn": {
+      "main": [
+        [
+          {
+            "node": "Animate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b675f969-70ba-454d-8ac4-cafc640d88fa",
+  "id": "0e3e14d6-6e60-45fa-8b5a-6b86179206c2",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

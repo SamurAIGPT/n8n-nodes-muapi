@@ -1,0 +1,65 @@
+{
+  "name": "MuAPI \u2014 Logo Generator (FLUX 2 Pro)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "52c0a2b7-21c9-4a4f-ac02-57ec20d23f09",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "textToImage",
+        "model": "flux-2-pro",
+        "prompt": "Minimalist geometric logo for a tech startup named 'NORTH'. Single solid color, flat design, isolated on white, perfectly centered, negative space hides an upward arrow. Vector style.",
+        "aspect_ratio": "1:1"
+      },
+      "id": "847c8732-7c17-465a-af4c-8ea0fa55eccc",
+      "name": "Logo",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Logo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5b7cd7a6-c548-4fbb-b092-4264dd5c4dfd",
+  "id": "e99d763c-f25c-48e1-90ea-da2f125492e6",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

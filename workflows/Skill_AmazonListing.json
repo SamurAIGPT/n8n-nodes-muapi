@@ -1,0 +1,91 @@
+{
+  "name": "MuAPI \u2014 Amazon Listing (Hero + Lifestyle)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "d005fe4c-9f44-4ab9-95b4-adc8e4452967",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageEnhance",
+        "model": "product-shot",
+        "product_image_url": "https://example.com/product.jpg",
+        "scene_description": "Pure white seamless background, soft studio key, gentle floor shadow"
+      },
+      "id": "2462f875-ef4b-4339-88f1-a485d18e2010",
+      "name": "Hero",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageEnhance",
+        "model": "product-photography",
+        "enhance_image_url": "https://example.com/product.jpg"
+      },
+      "id": "4c339679-1ccf-4940-b7c9-d135355d2000",
+      "name": "Lifestyle",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Hero",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Lifestyle",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d7b87db3-780b-4f23-9a4d-b41442f03f73",
+  "id": "adc3a8e5-e1a0-4966-80be-833a565c0605",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

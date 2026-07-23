@@ -1,0 +1,66 @@
+{
+  "name": "MuAPI \u2014 Floor Plan 2D \u2192 3D",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "d80ef99e-0cf6-4c92-8150-83a6c9fe67fa",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-2-edit",
+        "i2i_prompt": "Convert the 2D floor plan in @image1 into a realistic 3D isometric architectural rendering with furniture, plants, and warm interior light.",
+        "images_list": "https://example.com/plan.jpg",
+        "i2i_aspect_ratio": "16:9"
+      },
+      "id": "beefda12-1b9c-4643-a673-ff995cc392ac",
+      "name": "Render3D",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "Render3D",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ae90a846-5c2b-4580-a4ae-ae1232106369",
+  "id": "c94bdf6d-7d2c-49b0-9232-205627bc023a",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}

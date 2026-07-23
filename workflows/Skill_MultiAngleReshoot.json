@@ -1,0 +1,94 @@
+{
+  "name": "MuAPI \u2014 Multi-Angle Reshoot (Fish-eye + Low-angle)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "b1db2900-96ec-4356-8052-b2b4daca8519",
+      "name": "When clicking Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-pro-edit",
+        "i2i_prompt": "Re-render the exact same scene from @image1 with a fish-eye lens, dramatic curvature at the edges. Preserve subject identity exactly.",
+        "images_list": "https://example.com/subject.jpg",
+        "i2i_aspect_ratio": "1:1"
+      },
+      "id": "7237573b-778b-45a4-9675-4a6c24f2bba7",
+      "name": "FishEye",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "imageToImage",
+        "model": "nano-banana-pro-edit",
+        "i2i_prompt": "Re-render the exact same scene from @image1 as a low-angle hero shot, camera looking up at the subject. Preserve identity exactly.",
+        "images_list": "https://example.com/subject.jpg",
+        "i2i_aspect_ratio": "1:1"
+      },
+      "id": "95fdd9f2-32da-4592-8097-db9b9db741d2",
+      "name": "LowAngle",
+      "type": "n8n-nodes-muapi.muapiPredictor",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "muapiApi": {
+          "id": "muapiApi",
+          "name": "MuAPI API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Test": {
+      "main": [
+        [
+          {
+            "node": "FishEye",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "LowAngle",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a71b36d2-ef15-4c75-8d9d-702eb13f4c98",
+  "id": "5b8439b0-4588-44e7-a386-5539f4a24083",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "muapi",
+    "starter",
+    "skill"
+  ]
+}
