@@ -83,3 +83,12 @@ The **MuAPI** node handles this automatically. Set **"Return Request ID Only"** 
 ## License
 
 MIT
+
+## API Guides
+
+These focused Muapi guides provide endpoint schemas and runnable examples for the media workflows available through the nodes:
+
+- [Image Upscaler API](https://github.com/Anil-matcha/Image-Upscaler-API) · [Background Remover API](https://github.com/Anil-matcha/Background-Remover-API) · [Image Face Swap API](https://github.com/Anil-matcha/Image-Face-Swap-API)
+- [Video Upscaler API](https://github.com/Anil-matcha/Video-Upscaler-API) · [Video to Audio API](https://github.com/Anil-matcha/Video-to-Audio-API) · [Video Face Swap API](https://github.com/Anil-matcha/Video-Face-Swap-API)
+- [Virtual Try-On API](https://github.com/Anil-matcha/Virtual-Try-On-API) · [Product Photography API](https://github.com/Anil-matcha/Product-Photography-API) · [Watermark Remover API](https://github.com/Anil-matcha/Watermark-Remover-API)
+- [AI Music API](https://github.com/Anil-matcha/AI-Music-API) · [AI Avatar Lipsync API](https://github.com/Anil-matcha/AI-Avatar-Lipsync-API)
