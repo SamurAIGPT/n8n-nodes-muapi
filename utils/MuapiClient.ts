@@ -181,6 +181,7 @@ export const MODEL_REGISTRY: Record<string, ModelDefinition[]> = {
     { value: 'nano-banana', name: 'Nano-Banana', endpoint: 'nano-banana', description: 'Nano-Banana (Gemini 3 style reasoning-driven)' },
     { value: 'nano-banana-pro', name: 'Nano-Banana Pro', endpoint: 'nano-banana-pro', description: 'Nano-Banana Pro' },
     { value: 'nano-banana-2', name: 'Nano-Banana 2', endpoint: 'nano-banana-2', description: 'Nano-Banana 2' },
+    { value: 'nano-banana-2-1', name: 'Nano-Banana 2.1', endpoint: 'nano-banana-2-1', description: 'Nano-Banana 2.1' },
     // Kling
     { value: 'kling-o1-t2i', name: 'Kling o1 (T2I)', endpoint: 'kling-o1-text-to-image', description: 'Kling o1 text-to-image' },
     { value: 'kling-o3', name: 'Kling o3', endpoint: 'kling-o3-image', description: 'Kling o3 image' },
@@ -248,6 +249,7 @@ export const MODEL_REGISTRY: Record<string, ModelDefinition[]> = {
     { value: 'nano-banana-edit', name: 'Nano-Banana Edit', endpoint: 'nano-banana-edit', description: 'Nano-Banana edit' },
     { value: 'nano-banana-effects', name: 'Nano-Banana Effects', endpoint: 'nano-banana-effects', description: 'Nano-Banana effects' },
     { value: 'nano-banana-2-edit', name: 'Nano-Banana 2 Edit', endpoint: 'nano-banana-2-edit', description: 'Nano-Banana 2 edit' },
+    { value: 'nano-banana-2-1-edit', name: 'Nano-Banana 2.1 Edit', endpoint: 'nano-banana-2-1-edit', description: 'Nano-Banana 2.1 edit' },
     { value: 'nano-banana-pro-edit', name: 'Nano-Banana Pro Edit', endpoint: 'nano-banana-pro-edit', description: 'Nano-Banana Pro edit' },
     // Kling
     { value: 'kling-o1-edit', name: 'Kling o1 Edit', endpoint: 'kling-o1-edit-image', description: 'Kling o1 edit image' },

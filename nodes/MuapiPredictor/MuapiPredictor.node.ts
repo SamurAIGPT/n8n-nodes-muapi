@@ -409,7 +409,7 @@ const KONTEXT_I2I_MODELS = [
   'qwen-2.0-edit', 'qwen-2.0-pro-edit',
   // Nano-banana edits
   'nano-banana-edit', 'nano-banana-effects',
-  'nano-banana-2-edit', 'nano-banana-pro-edit',
+  'nano-banana-2-edit', 'nano-banana-2-1-edit', 'nano-banana-pro-edit',
   // Kling o3
   'kling-o3-edit',
   // Wan edits
@@ -543,7 +543,7 @@ export class MuapiPredictor implements INodeType {
           'reve',
           'seedream-v3', 'seedream-v4', 'seedream-v4.5', 'seedream-5',
           'qwen-image', 'qwen-2.0', 'qwen-2.0-pro',
-          'nano-banana', 'nano-banana-pro', 'nano-banana-2',
+          'nano-banana', 'nano-banana-pro', 'nano-banana-2', 'nano-banana-2-1',
           'imagen4', 'imagen4-fast', 'imagen4-ultra',
           'gpt-image-1.5', 'gpt-image-2',
           'kling-o1-t2i', 'kling-o3',
