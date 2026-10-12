@@ -421,6 +421,8 @@ export const MODEL_REGISTRY: Record<string, ModelDefinition[]> = {
     { value: 'vidu-q3-pro-i2v', name: 'Vidu Q3 Pro (I2V)', endpoint: 'vidu-q3-pro-image-to-video', description: 'Vidu Q3 Pro I2V' },
     { value: 'vidu-q3-turbo-i2v', name: 'Vidu Q3 Turbo (I2V)', endpoint: 'vidu-q3-turbo-image-to-video', description: 'Vidu Q3 Turbo I2V' },
     { value: 'vidu-q3-flf', name: 'Vidu Q3 First-Last Frames', endpoint: 'vidu-q3-pro-first-last-frames', description: 'Vidu Q3 first-last frames' },
+    { value: 'vidu-q4-i2v', name: 'Vidu Q4 (I2V)', endpoint: 'vidu-q4-image-to-video', description: 'Vidu Q4 I2V, up to 4K with audio' },
+    { value: 'vidu-q4-ref', name: 'Vidu Q4 Reference to Video', endpoint: 'vidu-q4-reference-to-video', description: 'Vidu Q4 reference-to-video, up to 15 reference images' },
     { value: 'hunyuan-i2v', name: 'HunyuanVideo (I2V)', endpoint: 'hunyuan-image-to-video', description: 'HunyuanVideo I2V' },
     { value: 'runway-i2v', name: 'Runway (I2V)', endpoint: 'runway-image-to-video', description: 'Runway I2V' },
     { value: 'runway-act-two-i2v', name: 'Runway Act-Two', endpoint: 'runway-act-two-i2v', description: 'Runway Act-Two I2V' },

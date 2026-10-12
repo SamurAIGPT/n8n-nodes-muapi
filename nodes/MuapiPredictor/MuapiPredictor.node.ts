@@ -365,6 +365,8 @@ const I2V_BASIC_MODELS = [
   'ltx-2-pro-i2v', 'ltx-2-fast-i2v', 'ltx-2-19b-i2v', 'ltx-2.3-i2v',
   // InfiniteTalk / Effects
   'infinitetalk-i2v', 'video-effects', 'wan-effects',
+  // Vidu Q4 image-to-video (single image_url)
+  'vidu-q4-i2v',
 ];
 
 // I2V models that take images_list (array of URLs)
@@ -382,7 +384,7 @@ const I2V_LIST_MODELS = [
   // Vidu
   'vidu-v2.0-i2v', 'vidu-q1-ref', 'vidu-q2-pro-i2v', 'vidu-q2-turbo-i2v',
   'vidu-q2-ref', 'vidu-q2-start-end', 'vidu-q3-pro-i2v', 'vidu-q3-turbo-i2v',
-  'vidu-q3-flf',
+  'vidu-q3-flf', 'vidu-q4-ref',
   // Wan
   'wan2.1-i2v', 'wan2.1-ref', 'wan2.2-i2v', 'wan2.2-spicy-i2v',
   'wan2.5-i2v', 'wan2.5-i2v-fast', 'wan2.6-i2v', 'wan2.7-i2v', 'wan2.7-ref',
