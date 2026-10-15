@@ -266,6 +266,12 @@ function buildPayload(
       }
       return p;
     }
+    if (['elevenlabs-v4', 'fish-s2-1-pro', 'lyria-3-pro', 'lyria-3', 'lyria-2'].includes(model)) {
+      const p: Record<string, unknown> = { prompt: get('audio_prompt') };
+      if (model === 'elevenlabs-v4') p.voice_id = get('audio_voice_eleven');
+      if (model === 'fish-s2-1-pro') p.voice_id = get('audio_voice_fish');
+      return p;
+    }
     if (model === 'mmaudio-t2a') {
       return {
         prompt: get('audio_prompt'),
@@ -550,7 +556,7 @@ export class MuapiPredictor implements INodeType {
           'gpt-image-1.5', 'gpt-image-2',
           'kling-o1-t2i', 'kling-o3',
           'hunyuan-image-2.1', 'hunyuan-image-3.0',
-          'ideogram-v3',
+          'ideogram-v3', 'ideogram-v4',
           'z-image-base', 'z-image-turbo',
           'leonardo-lucid', 'leonardo-phoenix',
           'grok', 'grok-quality',
@@ -1304,8 +1310,8 @@ export class MuapiPredictor implements INodeType {
         typeOptions: { rows: 3 },
         default: '',
         required: true,
-        description: 'Text description of the audio to generate',
-        displayOptions: showWhen('audio', ['mmaudio-t2a', 'mmaudio-v2v']),
+        description: 'Text description of the audio to generate (or the text to speak for text-to-speech models, or the music description for Lyria)',
+        displayOptions: showWhen('audio', ['mmaudio-t2a', 'mmaudio-v2v', 'elevenlabs-v4', 'fish-s2-1-pro', 'lyria-3-pro', 'lyria-3', 'lyria-2']),
       },
       {
         displayName: 'Duration (seconds)',
@@ -1314,6 +1320,27 @@ export class MuapiPredictor implements INodeType {
         default: 8,
         description: 'Duration of audio in seconds (1-30)',
         displayOptions: showWhen('audio', ['mmaudio-t2a', 'mmaudio-v2v']),
+      },
+      {
+        displayName: 'Voice',
+        name: 'audio_voice_eleven',
+        type: 'options',
+        options: [
+          { value: 'voice_daniel', name: 'Daniel' },
+          { value: 'voice_liam', name: 'Liam' },
+        ],
+        default: 'voice_daniel',
+        description: 'Voice to use for the narration',
+        displayOptions: showWhen('audio', ['elevenlabs-v4']),
+      },
+      {
+        displayName: 'Voice',
+        name: 'audio_voice_fish',
+        type: 'options',
+        options: [{ value: 'voice_fish_narrator', name: 'Narrator' }],
+        default: 'voice_fish_narrator',
+        description: 'Voice to use for the narration',
+        displayOptions: showWhen('audio', ['fish-s2-1-pro']),
       },
       {
         displayName: 'Video URL',

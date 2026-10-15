@@ -190,6 +190,7 @@ export const MODEL_REGISTRY: Record<string, ModelDefinition[]> = {
     { value: 'hunyuan-image-3.0', name: 'Hunyuan Image 3.0', endpoint: 'hunyuan-image-3.0', description: 'Hunyuan Image 3.0' },
     // Ideogram
     { value: 'ideogram-v3', name: 'Ideogram V3', endpoint: 'ideogram-v3-t2i', description: 'Ideogram V3 — best-in-class text rendering' },
+    { value: 'ideogram-v4', name: 'Ideogram 4.0', endpoint: 'ideogram-v4', description: 'Ideogram 4.0 — sharp typography and graphic design, 1K/2K' },
     // Reve
     { value: 'reve', name: 'Reve', endpoint: 'reve-text-to-image', description: 'Reve text-to-image generation' },
     // Z-Image
@@ -527,6 +528,11 @@ export const MODEL_REGISTRY: Record<string, ModelDefinition[]> = {
     { value: 'minimax-speech-hd', name: 'MiniMax Speech 2.6 HD', endpoint: 'minimax-speech-2.6-hd', description: 'MiniMax Speech 2.6 HD' },
     { value: 'minimax-speech-turbo', name: 'MiniMax Speech 2.6 Turbo', endpoint: 'minimax-speech-2.6-turbo', description: 'MiniMax Speech 2.6 Turbo' },
     { value: 'minimax-voice-clone', name: 'MiniMax Voice Clone', endpoint: 'minimax-voice-clone', description: 'MiniMax voice clone' },
+    { value: 'elevenlabs-v4', name: 'Eleven v4 (Text to Speech)', endpoint: 'elevenlabs-v4', description: 'Eleven v4 expressive text-to-speech, up to 2,000 characters' },
+    { value: 'fish-s2-1-pro', name: 'Fish Audio S2.1 Pro (Text to Speech)', endpoint: 'fish-s2-1-pro', description: 'Fish Audio S2.1 Pro long-form text-to-speech, up to 10,000 characters' },
+    { value: 'lyria-3-pro', name: 'Lyria 3 Pro', endpoint: 'lyria-3-pro', description: 'Google Lyria 3 Pro full-length songs up to 3 minutes' },
+    { value: 'lyria-3', name: 'Lyria 3', endpoint: 'lyria-3', description: 'Google Lyria 3 music clips up to 30 seconds' },
+    { value: 'lyria-2', name: 'Lyria 2', endpoint: 'lyria-2', description: 'Google Lyria 2 instrumental music, ~30 seconds' },
   ],
 
   // ── IMAGE / TEXT TO 3D ──────────────────────────────────────────────────────
