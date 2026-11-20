@@ -344,6 +344,8 @@ export const MODEL_REGISTRY: Record<string, ModelDefinition[]> = {
     { value: 'ltx-2-fast-t2v', name: 'LTX-2 Fast', endpoint: 'ltx-2-fast-text-to-video', description: 'Lightricks LTX-2 Fast' },
     { value: 'ltx-2-19b-t2v', name: 'LTX-2 19B', endpoint: 'ltx-2-19b-text-to-video', description: 'Lightricks LTX-2 19B' },
     { value: 'ltx-2.3-t2v', name: 'LTX-2.3', endpoint: 'ltx-2.3-text-to-video', description: 'Lightricks LTX-2.3' },
+    { value: 'ltx-2.5-fast-t2v', name: 'LTX-2.5 Fast', endpoint: 'ltx-2.5-fast-text-to-video', description: 'Lightricks LTX-2.5 Fast with native audio' },
+    { value: 'ltx-2.5-pro-t2v', name: 'LTX-2.5 Pro', endpoint: 'ltx-2.5-pro-text-to-video', description: 'Lightricks LTX-2.5 Pro with native audio' },
     // Other
     { value: 'ovi-t2v', name: 'OVI', endpoint: 'ovi-text-to-video', description: 'OVI text-to-video' },
     { value: 'grok-t2v', name: 'Grok Imagine (T2V)', endpoint: 'grok-imagine-text-to-video', description: 'xAI Grok Imagine T2V' },
@@ -439,6 +441,8 @@ export const MODEL_REGISTRY: Record<string, ModelDefinition[]> = {
     { value: 'ltx-2-fast-i2v', name: 'LTX-2 Fast (I2V)', endpoint: 'ltx-2-fast-image-to-video', description: 'Lightricks LTX-2 Fast I2V' },
     { value: 'ltx-2-19b-i2v', name: 'LTX-2 19B (I2V)', endpoint: 'ltx-2-19b-image-to-video', description: 'Lightricks LTX-2 19B I2V' },
     { value: 'ltx-2.3-i2v', name: 'LTX-2.3 (I2V)', endpoint: 'ltx-2.3-image-to-video', description: 'Lightricks LTX-2.3 I2V' },
+    { value: 'ltx-2.5-fast-i2v', name: 'LTX-2.5 Fast (I2V)', endpoint: 'ltx-2.5-fast-image-to-video', description: 'Lightricks LTX-2.5 Fast I2V with native audio' },
+    { value: 'ltx-2.5-pro-i2v', name: 'LTX-2.5 Pro (I2V)', endpoint: 'ltx-2.5-pro-image-to-video', description: 'Lightricks LTX-2.5 Pro I2V with native audio' },
     // Other
     { value: 'ovi-i2v', name: 'OVI (I2V)', endpoint: 'ovi-image-to-video', description: 'OVI I2V' },
     { value: 'grok-i2v', name: 'Grok Imagine (I2V)', endpoint: 'grok-imagine-image-to-video', description: 'xAI Grok Imagine I2V' },

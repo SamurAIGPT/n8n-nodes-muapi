@@ -87,7 +87,7 @@ function buildPayload(
         'pixverse-v4.5-t2v', 'pixverse-v5-t2v', 'pixverse-v5.5-t2v', 'pixverse-v6-t2v',
         'seedance-v2.0-t2v', 'seedance-2-t2v', 'seedance-2-t2v-fast',
         'seedance-2-vip-t2v', 'seedance-2-vip-t2v-fast',
-        'ltx-2-pro-t2v', 'ltx-2-fast-t2v', 'ltx-2-19b-t2v', 'ltx-2.3-t2v',
+        'ltx-2-pro-t2v', 'ltx-2-fast-t2v', 'ltx-2-19b-t2v', 'ltx-2.3-t2v', 'ltx-2.5-fast-t2v', 'ltx-2.5-pro-t2v',
         'ovi-t2v', 'grok-t2v',
       ];
       if (!excludedFromRes.includes(model)) {
@@ -133,7 +133,7 @@ function buildPayload(
       'seedance-2.0-new-omni', 'seedance-2.0-new-first-last',
       'seedance-2-i2v', 'seedance-2-i2v-fast',
       'seedance-2-first-last-frame', 'seedance-2-vip-i2v',
-      'ltx-2-pro-i2v', 'ltx-2-fast-i2v', 'ltx-2-19b-i2v', 'ltx-2.3-i2v',
+      'ltx-2-pro-i2v', 'ltx-2-fast-i2v', 'ltx-2-19b-i2v', 'ltx-2.3-i2v', 'ltx-2.5-fast-i2v', 'ltx-2.5-pro-i2v',
       'kling-v3-4k-i2v', 'kling-v3-omni-pro-i2v', 'kling-v3-omni-std-i2v', 'kling-v3-omni-4k-i2v',
       'happy-horse-1080-i2v', 'happy-horse-720-i2v', 'happy-horse-1080-ref',
       'ovi-i2v',
@@ -340,7 +340,7 @@ const T2V_ASPECT_MODELS = [
   // MiniMax / LTX
   'minimax-hailuo-02-std-t2v', 'minimax-hailuo-02-pro-t2v',
   'minimax-hailuo-2.3-pro-t2v', 'minimax-hailuo-2.3-std-t2v',
-  'ltx-2-pro-t2v', 'ltx-2-fast-t2v', 'ltx-2-19b-t2v', 'ltx-2.3-t2v',
+  'ltx-2-pro-t2v', 'ltx-2-fast-t2v', 'ltx-2-19b-t2v', 'ltx-2.3-t2v', 'ltx-2.5-fast-t2v', 'ltx-2.5-pro-t2v',
   // Other
   'ovi-t2v', 'grok-t2v',
   'happy-horse-1080-t2v', 'happy-horse-720-t2v',
@@ -368,7 +368,7 @@ const I2V_BASIC_MODELS = [
   'minimax-hailuo-2.3-pro-i2v', 'minimax-hailuo-2.3-std-i2v',
   'minimax-hailuo-2.3-fast',
   // LTX
-  'ltx-2-pro-i2v', 'ltx-2-fast-i2v', 'ltx-2-19b-i2v', 'ltx-2.3-i2v',
+  'ltx-2-pro-i2v', 'ltx-2-fast-i2v', 'ltx-2-19b-i2v', 'ltx-2.3-i2v', 'ltx-2.5-fast-i2v', 'ltx-2.5-pro-i2v',
   // InfiniteTalk / Effects
   'infinitetalk-i2v', 'video-effects', 'wan-effects',
   // Vidu Q4 image-to-video (single image_url)
